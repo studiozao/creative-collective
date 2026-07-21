@@ -404,7 +404,8 @@ button:focus-visible {
 /* ---------------------------------------------------------------------------
    6 · Programme — asymmetric editorial index, not a 3-card grid.
    Hacks leads at full width; Mentoring Sprints + The Collective pair beneath,
-   divided by a single hairline rule. Icons sit inline with their heading.
+   divided by a single hairline rule. Each offering carries a spec-line
+   (access + time) so a reader can self-select at a glance.
    --------------------------------------------------------------------------- */
 .programme-index { display: flex; flex-direction: column; gap: var(--space-xl); }
 
@@ -412,7 +413,7 @@ button:focus-visible {
   display: flex;
   align-items: center;
   gap: 0.75rem;
-  margin-bottom: var(--space-sm);
+  margin-bottom: var(--space-2xs);
 }
 .programme-icon {
   display: inline-flex;
@@ -421,12 +422,24 @@ button:focus-visible {
 }
 .programme-icon svg { width: 28px; height: 28px; }
 
+/* Functional spec-line: who it's for + time commitment. Small, muted,
+   sits between the title and the body. */
+.programme-meta {
+  font-size: var(--text-small);
+  color: var(--color-darker-grey);
+  margin-bottom: var(--space-sm);
+  letter-spacing: 0.01em;
+}
+
 .programme-lead {
   padding-bottom: var(--space-xl);
   border-bottom: 1px solid var(--color-light-grey);
 }
 .programme-lead .programme-title {
   font-size: var(--text-h2);
+}
+.programme-lead .programme-meta {
+  font-size: var(--text-body);
 }
 .programme-lead .programme-body {
   font-size: var(--text-lead);
@@ -469,30 +482,34 @@ button:focus-visible {
   padding: 0;
   display: flex;
   flex-direction: column;
-  gap: var(--space-2xl);
+  gap: var(--space-xl);
 }
-.process-step {
-  display: grid;
-  grid-template-columns: 4rem 1fr;
-  gap: var(--space-lg);
-  align-items: start;
+.process-step { max-width: var(--measure); }
+/* Number and title share ONE baseline-aligned row, so they read as a single
+   line no matter the numeral size; the body indents beneath, under the title. */
+.process-head {
+  display: flex;
+  align-items: baseline;
+  gap: var(--space-md);
+  margin-bottom: var(--space-xs);
 }
 .process-num {
   font-family: var(--font-display);
-  font-size: var(--text-num);
-  font-weight: 400;
-  color: var(--color-grey); /* large text (3:1 floor) — light-grey was near-invisible */
+  font-size: var(--text-h2);
+  font-weight: 600;
+  color: var(--color-red);
   line-height: 1;
-  /* optical nudge: a serif numeral's cap-height sits slightly below its own
-     line-box top, so without this it reads a touch high next to the title */
-  margin-top: 0.1em;
+  min-width: 1.5ch; /* keeps 1/2/3 titles left-aligned with each other */
 }
 .process-title {
   font-size: var(--text-h3);
   font-weight: 600;
-  margin-bottom: 0.5rem;
 }
-.process-body { color: var(--color-darker-grey); }
+.process-body {
+  color: var(--color-darker-grey);
+  /* align under the title, past the numeral column */
+  padding-left: calc(1.5ch + var(--space-md));
+}
 
 .how-band {
   background: var(--color-navy);
@@ -530,14 +547,19 @@ button:focus-visible {
 .check-item {
   display: flex;
   align-items: baseline;
-  gap: 1rem;
+  gap: 0.85rem;
   font-size: var(--text-lead);
   color: var(--color-black);
 }
-.check-mark {
+/* A real round bullet, drawn in CSS so it stays crisp at any size */
+.check-dot {
   flex-shrink: 0;
-  font-family: var(--font-mono);
-  color: var(--color-red);
+  width: 0.5rem;
+  height: 0.5rem;
+  border-radius: 50%;
+  background: var(--color-red);
+  /* nudge the dot to sit on the text's optical centre, not its baseline */
+  transform: translateY(-0.25em);
 }
 .eligibility-close {
   margin-top: var(--space-lg);
@@ -588,7 +610,8 @@ button:focus-visible {
 .site-footer {
   background: var(--color-white);
   border-top: 1px solid var(--color-light-grey);
-  padding-block: var(--space-lg);
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-xl); /* room beneath the copyright — it was hugging the page edge */
 }
 .footer-inner {
   display: flex;
@@ -602,7 +625,7 @@ button:focus-visible {
   color: var(--color-darker-grey); /* --color-grey fails 4.5:1 at this size */
 }
 .footer-bottom {
-  margin-top: var(--space-md);
+  margin-top: var(--space-xl); /* separate copyright from the tagline row */
 }
 .footer-copyright {
   /* body face, not mono — the mono outlier stays capped at its 2 slots
@@ -648,9 +671,10 @@ button:focus-visible {
   .hero-collage { order: 2; }
 
   .programme-pair { grid-template-columns: 1fr; gap: var(--space-xl); }
+  .programme-lead .programme-title { font-size: var(--text-h3); }
 
-  .process-step { grid-template-columns: 1fr; gap: var(--space-xs); }
-  .process-num { font-size: 1.75rem; }
+  .process-num { font-size: var(--text-h3); }
+  .process-body { padding-left: 0; } /* full width on mobile; no numeral column to clear */
 
   .nav-toggle { display: flex; }
   .nav-links {
