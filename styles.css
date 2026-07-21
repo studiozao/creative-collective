@@ -325,52 +325,14 @@ button:focus-visible {
 }
 .collage-tile:hover .collage-img { transform: scale(1.05); }
 
-/* <<< SWAP >>> real programme photography — see README for current credits */
-.img-hands  { background-image: url("assets/hero/hands.jpg"); }
-.img-music  { background-image: url("assets/hero/music.jpg"); }
-.img-market { background-image: url("assets/hero/market.jpg"); }
-
-/* Hand-built specimen swatch standing in for "design work on a screen" —
-   no stock photo could represent this honestly, so this tile is composed
-   entirely in CSS: colour swatches + a type specimen mark + a rule. */
-.img-screen {
-  background: var(--color-navy);
-  overflow: hidden;
-}
-.specimen-swatch {
-  position: absolute;
-  border-radius: 3px;
-}
-.specimen-swatch-a {
-  top: 12%; left: 10%; width: 34%; height: 22%;
-  background: var(--color-red);
-}
-.specimen-swatch-b {
-  top: 12%; left: 48%; width: 42%; height: 14%;
-  background: var(--color-light-grey);
-}
-.specimen-swatch-c {
-  top: 30%; left: 48%; width: 42%; height: 8%;
-  background: var(--color-grey);
-}
-.specimen-mark {
-  position: absolute;
-  bottom: 14%;
-  left: 10%;
-  font-family: var(--font-display);
-  font-style: italic;
-  font-size: 3rem;
-  color: var(--color-white);
-  line-height: 1;
-}
-.specimen-rule {
-  position: absolute;
-  bottom: 10%;
-  left: 10%;
-  right: 10%;
-  height: 1px;
-  background: rgba(255, 255, 255, 0.28);
-}
+/* <<< SWAP >>> real programme photography, one per creative discipline —
+   see README for current credits. Each maps to a discipline on the page:
+   hands = makers/craft · art = illustration & fine art · design = graphic
+   design/branding (letterpress type) · photography = drone/property. */
+.img-hands       { background-image: url("assets/hero/hands.jpg"); }
+.img-art         { background-image: url("assets/hero/art.jpg"); }
+.img-design      { background-image: url("assets/hero/design.jpg"); }
+.img-photography { background-image: url("assets/hero/photography.jpg"); background-position: center 60%; }
 
 .scroll-cue {
   justify-self: center;
@@ -704,7 +666,6 @@ button:focus-visible {
 @media (max-width: 560px) {
   .hero-collage { gap: 0.6rem; }
   .tile-a, .tile-b, .tile-c, .tile-d { transform: none; }
-  .specimen-mark { font-size: 2.25rem; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
 }
 

@@ -38,27 +38,26 @@ fast (Cmd/Ctrl+F).
    *visual* height (not the same box) via `.logo-img` / `.logo-img-escc` in
    `styles.css` — adjust those two rules if either logo is replaced later.
 
-2. **Hero images — TEMPORARY, replace before launch.** Three of the four
-   collage tiles use real photos — generic (but real, credited) stock, not
-   actual programme photography, dropped in so the page doesn't look
-   unfinished. Files live in `assets/hero/` (`hands.jpg`, `music.jpg`,
-   `market.jpg`); swap each directly, or update the `url()` in `styles.css`
-   under `.img-hands` / `.img-music` / `.img-market`. Suggested export:
-   ~800×1000px, under 200KB each.
+2. **Hero images — TEMPORARY, replace before launch.** All four collage
+   tiles use real photos — generic (but real, credited) stock, not actual
+   programme photography, dropped in so the page doesn't look unfinished.
+   Each tile represents one creative discipline. Files live in
+   `assets/hero/`; swap each directly (keep the filename) or update the
+   `url()` in `styles.css`. Suggested export: ~800×1000px, under 200KB each.
 
-   The **fourth tile** (`.img-screen`, standing in for "design work on a
-   screen") is deliberately **not** a stock photo — no honest match exists on
-   the free-image libraries we checked, so it's a small hand-built CSS
-   composition (colour swatches + a type mark) instead. Replace it with a
-   real photo whenever you have one: delete the `.specimen-*` spans in
-   `index.html`'s `.img-screen` figure and add a `background-image: url(...)`
-   to `.img-screen` in `styles.css`, same as the other three tiles.
+   | Tile | Discipline | File | `styles.css` rule |
+   | --- | --- | --- | --- |
+   | 1 | Makers / craft | `hands.jpg` | `.img-hands` |
+   | 2 | Illustration & fine art | `art.jpg` | `.img-art` |
+   | 3 | Graphic design / branding / identity | `design.jpg` | `.img-design` |
+   | 4 | Photography (portrait / commercial / drone / property) | `photography.jpg` | `.img-photography` |
 
    Current stand-in photo credits (all reused under their Commons licence —
    drop this list once the real photos are in):
-   - Hands: *Potter-helen-dixon-at-work3.jpg* by Whippetsgalore, CC BY-SA 4.0
-   - Jewellery-making: *Making brass rings 1 (4).jpg* by W.carter, CC BY-SA 4.0
-   - Film production: *Nandan Lawande operating camera on the set of Vande Bharat via America.jpg* by Nandancine, CC BY-SA 4.0
+   - Makers: *Potter-helen-dixon-at-work3.jpg* by Whippetsgalore, CC BY-SA 4.0
+   - Illustration & fine art: *Artist painting the mural of Paulo de Carvalho, Lisbon* by Jules Verne Times Two, CC BY-SA 4.0
+   - Graphic design: *Letterpress typefaces.jpg* by Kyle Van Horn, CC BY 2.0 (typography, the craft behind design / branding / identity)
+   - Photography: *Quadcopter camera drone in flight.jpg* by Josh Sorenson, CC0 (stands in for drone / property photography)
 
 3. **Google Form URL** — in `index.html`, find the CTA button in the form
    section (`href="https://forms.gle/REPLACE_WITH_REAL_FORM_URL"`) and paste the
