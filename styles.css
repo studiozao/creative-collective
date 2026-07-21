@@ -1,0 +1,763 @@
+/* Hallmark · macrostructure: continuous-scroll long document · tone: editorial/considered · anchor hue: navy #122D54
+   ============================================================================
+   East Sussex Creative Collective — styles.css
+   ----------------------------------------------------------------------------
+   Colour system uses the EXACT brand hex values requested (no substitutions).
+   Laptop-first; adapts down to mobile at the bottom of the file.
+   All motion respects prefers-reduced-motion (see end of file).
+   ============================================================================ */
+
+/* ---------------------------------------------------------------------------
+   1 · Design tokens
+   --------------------------------------------------------------------------- */
+:root {
+  /* Brand palette — use exactly these */
+  --white:        #FFFFFF;
+  --black:        #000000;   /* primary heading & body text */
+  --navy:         #122D54;   /* headings, nav, primary structural colour */
+  --grey:         #6B7280;   /* secondary text, labels, borders, bullet dots */
+  --light-grey:   #D1D5DB;   /* dividers, card backgrounds, separation bands */
+  --darker-grey:  #4B5563;   /* hover states */
+  --red:          #e42544;   /* CTA + sparingly used highlights */
+  --red-hover:    #c51d38;   /* derived darker red for CTA hover (keeps AA) */
+
+  /* Typography */
+  --font-display: "Space Grotesk", system-ui, sans-serif;
+  --font-body:    "Inter", system-ui, -apple-system, sans-serif;
+
+  /* Fluid type scale (laptop-first, clamps down cleanly) */
+  --text-hero:    clamp(2.75rem, 6vw, 5.5rem);
+  --text-h2:      clamp(2rem, 3.6vw, 3.25rem);
+  --text-h3:      clamp(1.25rem, 1.6vw, 1.5rem);
+  --text-lead:    clamp(1.125rem, 1.5vw, 1.4rem);
+  --text-body:    clamp(1rem, 1.1vw, 1.125rem);
+  --text-small:   0.9375rem;
+
+  /* Spacing scale (4pt-based) */
+  --space-xs:  0.5rem;
+  --space-sm:  1rem;
+  --space-md:  2rem;
+  --space-lg:  4rem;
+  --space-xl:  7rem;
+  --space-2xl: 11rem;   /* generous gap between sections — each is an "arrival" */
+
+  /* Layout */
+  --wrap-max:  1200px;
+  --wrap-pad:  clamp(1.25rem, 5vw, 4rem);
+
+  /* Motion */
+  --dur-fast:  200ms;
+  --dur-mid:   600ms;
+  --dur-slow:  900ms;
+  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
+}
+
+/* ---------------------------------------------------------------------------
+   2 · Reset & base
+   --------------------------------------------------------------------------- */
+*,
+*::before,
+*::after { box-sizing: border-box; }
+
+html {
+  scroll-behavior: smooth;       /* native smooth scroll */
+  scroll-padding-top: 6rem;      /* offset for fixed header on anchor jumps */
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  margin: 0;
+  font-family: var(--font-body);
+  font-size: var(--text-body);
+  line-height: 1.6;
+  color: var(--black);
+  background: var(--white);
+  -webkit-font-smoothing: antialiased;
+  text-rendering: optimizeLegibility;
+  overflow-x: clip;              /* never allow horizontal scroll */
+}
+
+h1, h2, h3 {
+  font-family: var(--font-display);
+  color: var(--navy);
+  line-height: 1.08;
+  letter-spacing: -0.02em;
+  margin: 0;
+  overflow-wrap: anywhere;
+  min-width: 0;
+}
+
+p { margin: 0; }
+
+a { color: inherit; }
+
+img,
+svg { max-width: 100%; display: block; }
+
+/* Shared width wrapper */
+.wrap {
+  width: 100%;
+  max-width: var(--wrap-max);
+  margin-inline: auto;
+  padding-inline: var(--wrap-pad);
+}
+
+/* Accessible skip link */
+.skip-link {
+  position: absolute;
+  left: -9999px;
+  top: 0;
+  z-index: 1000;
+  background: var(--navy);
+  color: var(--white);
+  padding: 0.75rem 1.25rem;
+  border-radius: 0 0 6px 0;
+  text-decoration: none;
+  font-weight: 600;
+}
+.skip-link:focus { left: 0; }
+
+/* Visible focus ring on every interactive element (shows instantly) */
+a:focus-visible,
+button:focus-visible {
+  outline: 3px solid var(--red);
+  outline-offset: 3px;
+  border-radius: 2px;
+}
+
+/* ---------------------------------------------------------------------------
+   3 · Buttons
+   --------------------------------------------------------------------------- */
+.btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: var(--font-display);
+  font-weight: 600;
+  font-size: 1rem;
+  line-height: 1;
+  text-decoration: none;
+  padding: 1rem 1.75rem;
+  border-radius: 999px;
+  border: 0;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: transform var(--dur-fast) var(--ease-out),
+              background-color var(--dur-fast) var(--ease-out),
+              box-shadow var(--dur-fast) var(--ease-out);
+}
+
+/* Primary CTA — red, used sparingly. White text passes AA (≈4.5:1). */
+.btn-primary {
+  background: var(--red);
+  color: var(--white);
+  box-shadow: 0 1px 2px rgba(18, 45, 84, 0.12);
+}
+.btn-primary:hover {
+  background: var(--red-hover);
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(228, 37, 68, 0.28);
+}
+.btn-primary:active { transform: translateY(0); }
+
+.btn-lg {
+  font-size: 1.0625rem;
+  padding: 1.15rem 2.25rem;
+}
+
+/* ---------------------------------------------------------------------------
+   4 · Header & nav
+   --------------------------------------------------------------------------- */
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
+  background: rgba(255, 255, 255, 0.88);
+  backdrop-filter: saturate(180%) blur(12px);
+  border-bottom: 1px solid var(--light-grey);
+}
+
+.header-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  min-height: 4.75rem;
+}
+
+/* Logo lockup — two placeholder boxes with a thin vertical rule between */
+.logo-lockup {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+}
+
+.logo-placeholder {
+  font-family: var(--font-display);
+  font-size: 0.6875rem;
+  font-weight: 600;
+  letter-spacing: 0.14em;
+  color: var(--navy);
+  background: var(--white);
+  border: 1px dashed var(--light-grey);
+  border-radius: 4px;
+  padding: 0.55rem 0.8rem;
+  white-space: nowrap;
+}
+
+/* When real logos are dropped in as <img>, use this class:
+   .logo-img { height: 40px; width: auto; } */
+.logo-img { height: 40px; width: auto; }
+
+.logo-rule {
+  width: 1px;
+  height: 30px;
+  background: var(--light-grey);
+}
+
+/* Nav */
+.site-nav { display: flex; align-items: center; }
+
+.nav-links {
+  display: flex;
+  align-items: center;
+  gap: 1.75rem;
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+.nav-links a {
+  font-family: var(--font-display);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  color: var(--navy);
+  text-decoration: none;
+  position: relative;
+  padding: 0.35rem 0;
+  transition: color var(--dur-fast) var(--ease-out);
+}
+/* Underline-draw hover */
+.nav-links a::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 100%;
+  height: 1.5px;
+  background: var(--navy);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform var(--dur-fast) var(--ease-out);
+}
+.nav-links a:hover { color: var(--darker-grey); }
+.nav-links a:hover::after { transform: scaleX(1); }
+
+/* Join pill in nav */
+.nav-links .nav-cta {
+  background: var(--navy);
+  color: var(--white);
+  padding: 0.5rem 1.1rem;
+  border-radius: 999px;
+}
+.nav-links .nav-cta::after { display: none; }
+.nav-links .nav-cta:hover {
+  background: var(--darker-grey);
+  color: var(--white);
+}
+
+/* Mobile nav toggle — hidden on laptop */
+.nav-toggle {
+  display: none;
+  flex-direction: column;
+  justify-content: center;
+  gap: 5px;
+  width: 44px;
+  height: 44px;
+  background: none;
+  border: 0;
+  cursor: pointer;
+}
+.nav-toggle-bar {
+  display: block;
+  width: 24px;
+  height: 2px;
+  background: var(--navy);
+  transition: transform var(--dur-fast) var(--ease-out),
+              opacity var(--dur-fast) var(--ease-out);
+}
+
+/* ---------------------------------------------------------------------------
+   5 · Section rhythm & colour bleed
+   Alternating white / soft light-grey bands with smooth gradient transitions
+   so sections bleed into one another rather than cutting hard.
+   --------------------------------------------------------------------------- */
+.section {
+  position: relative;
+  padding-block: var(--space-2xl);
+}
+
+/* Soft gradient bleed from white into a light-grey band and back.
+   Programme & Who sit on white; a gentle grey wash frames How-it-works and
+   the form so the page reads as continuous colour, not stacked slabs. */
+.section-how {
+  background: linear-gradient(
+    180deg,
+    var(--white) 0%,
+    #eef0f3 12%,
+    #eef0f3 88%,
+    var(--white) 100%
+  );
+}
+.section-eligibility {
+  background: var(--white);
+}
+.section-who {
+  background: linear-gradient(180deg, var(--white) 0%, #f4f5f7 50%, var(--white) 100%);
+}
+.section-form {
+  background: linear-gradient(180deg, var(--white) 0%, #eef0f3 45%, #e7e9ed 100%);
+}
+
+/* Section headers */
+.section-head { margin-bottom: var(--space-lg); max-width: 46rem; }
+
+.section-heading {
+  font-size: var(--text-h2);
+  font-weight: 700;
+}
+
+.section-intro {
+  margin-top: var(--space-sm);
+  font-size: var(--text-lead);
+  color: var(--darker-grey);
+  max-width: 42rem;
+}
+
+/* ---------------------------------------------------------------------------
+   6 · Hero
+   --------------------------------------------------------------------------- */
+.hero {
+  position: relative;
+  padding-top: var(--space-xl);
+  padding-bottom: var(--space-2xl);
+  overflow: hidden;
+}
+.hero-inner {
+  display: grid;
+  grid-template-columns: 1.05fr 0.95fr;
+  gap: clamp(2rem, 5vw, 5rem);
+  align-items: center;
+  min-height: 70vh;
+}
+.hero-copy { max-width: 34rem; }
+
+.hero-heading {
+  font-size: var(--text-hero);
+  font-weight: 700;
+  color: var(--navy);
+}
+
+.hero-subhead {
+  margin-top: var(--space-md);
+  font-size: var(--text-lead);
+  color: var(--darker-grey);
+  max-width: 30rem;
+}
+
+.hero-copy .btn { margin-top: var(--space-lg); }
+
+/* Hero collage — flexible grid that stays intentional with 4 tiles.
+   Uses an asymmetric 2-col layout with staggered vertical offsets. */
+.hero-collage {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: clamp(0.75rem, 1.5vw, 1.25rem);
+  align-content: center;
+}
+.collage-tile {
+  margin: 0;
+  border-radius: 10px;
+  overflow: hidden;
+  will-change: transform;
+  box-shadow: 0 12px 40px rgba(18, 45, 84, 0.10);
+}
+/* Staggered offsets so 4 tiles feel composed, not gridded */
+.tile-a { transform: translateY(-1.5rem); }
+.tile-b { transform: translateY(1.25rem); }
+.tile-c { transform: translateY(-0.5rem); }
+.tile-d { transform: translateY(2rem); }
+
+.collage-img {
+  aspect-ratio: 4 / 5;
+  background-size: cover;
+  background-position: center;
+  transition: transform var(--dur-slow) var(--ease-out);
+}
+.collage-tile:hover .collage-img { transform: scale(1.05); }
+
+/* <<< SWAP >>> Placeholder collage imagery.
+   Replace each gradient below with:  background-image: url("assets/your-photo.jpg");
+   Subjects, per the brief, are on each figure's aria-label. */
+.img-hands  { background-image: linear-gradient(135deg, #122D54, #4B5563); }
+.img-screen { background-image: linear-gradient(135deg, #4B5563, #6B7280); }
+.img-music  { background-image: linear-gradient(135deg, #6B7280, #D1D5DB); }
+.img-market { background-image: linear-gradient(135deg, #e42544, #122D54); }
+.img-film   { background-image: linear-gradient(135deg, #122D54, #6B7280); }
+.img-craft  { background-image: linear-gradient(135deg, #4B5563, #D1D5DB); }
+
+/* Scroll cue */
+.scroll-cue {
+  position: absolute;
+  left: 50%;
+  bottom: 2.5rem;
+  transform: translateX(-50%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 0.5rem;
+  text-decoration: none;
+  color: var(--grey);
+}
+.scroll-cue-text {
+  font-family: var(--font-display);
+  font-size: 0.75rem;
+  letter-spacing: 0.18em;
+  text-transform: uppercase;
+}
+.scroll-cue-line {
+  width: 1px;
+  height: 44px;
+  background: var(--grey);
+  transform-origin: top;
+  animation: scrollCue 2.2s var(--ease-in-out) infinite;
+}
+@keyframes scrollCue {
+  0%   { transform: scaleY(0); opacity: 0; }
+  40%  { transform: scaleY(1); opacity: 1; }
+  100% { transform: scaleY(0); opacity: 0; transform-origin: bottom; }
+}
+
+/* ---------------------------------------------------------------------------
+   7 · Programme blocks
+   --------------------------------------------------------------------------- */
+.programme-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+}
+.programme-block {
+  padding: var(--space-md);
+  border: 1px solid var(--light-grey);
+  border-radius: 12px;
+  background: var(--white);
+  transition: transform var(--dur-mid) var(--ease-out),
+              box-shadow var(--dur-mid) var(--ease-out),
+              border-color var(--dur-mid) var(--ease-out);
+}
+.programme-block:hover {
+  transform: translateY(-4px);
+  border-color: var(--grey);
+  box-shadow: 0 18px 48px rgba(18, 45, 84, 0.08);
+}
+.block-icon {
+  display: inline-flex;
+  color: var(--navy);      /* line-art icon: navy stroke, not filled colour */
+  margin-bottom: var(--space-sm);
+}
+.block-icon svg { width: 40px; height: 40px; }
+.block-title {
+  font-size: var(--text-h3);
+  font-weight: 600;
+  margin-bottom: 0.75rem;
+}
+.block-body { color: var(--darker-grey); }
+
+/* ---------------------------------------------------------------------------
+   8 · How it works
+   --------------------------------------------------------------------------- */
+.how-opening {
+  max-width: 44rem;
+  margin-bottom: var(--space-xl);
+}
+.how-opening p {
+  font-family: var(--font-display);
+  font-size: var(--text-lead);
+  font-weight: 500;
+  color: var(--navy);
+  line-height: 1.4;
+}
+
+/* Steps with an animated connector line running through the numbers */
+.steps {
+  position: relative;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: clamp(1.5rem, 3vw, 3rem);
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  counter-reset: step;
+}
+/* Connector track sits behind the number row */
+.steps-connector {
+  position: absolute;
+  top: 26px;              /* aligns with vertical centre of .step-num */
+  left: 8%;
+  right: 8%;
+  height: 2px;
+  background: var(--light-grey);
+  z-index: 0;
+}
+.steps-connector-fill {
+  display: block;
+  height: 100%;
+  width: 0;              /* animated to 100% on scroll (see script.js) */
+  background: var(--navy);
+  transition: width 1.2s var(--ease-in-out);
+}
+.step { position: relative; z-index: 1; }
+.step-num {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  background: var(--white);
+  border: 2px solid var(--navy);
+  color: var(--navy);
+  font-family: var(--font-display);
+  font-size: 1.375rem;
+  font-weight: 700;
+  margin-bottom: var(--space-sm);
+}
+.step-title {
+  font-size: var(--text-h3);
+  font-weight: 600;
+  margin-bottom: 0.5rem;
+}
+.step-body { color: var(--darker-grey); }
+
+/* Light-grey community band */
+.how-band {
+  background: var(--light-grey);
+  margin-top: var(--space-xl);
+  padding-block: var(--space-lg);
+}
+.how-band-text {
+  font-family: var(--font-display);
+  font-size: var(--text-lead);
+  font-weight: 500;
+  color: var(--navy);
+  max-width: 48rem;
+  line-height: 1.45;
+}
+
+/* Quieter caveat — on white so grey text keeps contrast */
+.how-caveat {
+  margin-top: var(--space-md);
+  font-size: var(--text-small);
+  color: var(--grey);
+  max-width: 46rem;
+}
+
+/* ---------------------------------------------------------------------------
+   9 · Eligibility
+   --------------------------------------------------------------------------- */
+.eligibility-inner { max-width: 52rem; }
+.checklist {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: grid;
+  gap: var(--space-md);
+}
+.check-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  font-size: var(--text-lead);
+  color: var(--black);
+}
+.check-dot {
+  flex-shrink: 0;
+  width: 12px;
+  height: 12px;
+  margin-top: 0.55rem;
+  border-radius: 50%;
+  border: 2px solid var(--grey);   /* grey bullet dots, per brief */
+}
+.eligibility-close {
+  margin-top: var(--space-lg);
+  font-size: var(--text-lead);
+  color: var(--darker-grey);
+  max-width: 40rem;
+}
+
+/* ---------------------------------------------------------------------------
+   10 · Who's behind this
+   --------------------------------------------------------------------------- */
+.who-inner {
+  max-width: 46rem;
+  margin-inline: auto;
+  text-align: center;
+}
+.who-icon {
+  display: inline-flex;
+  color: var(--navy);
+  margin-bottom: var(--space-md);
+}
+.who-icon svg { width: 48px; height: 48px; }
+.who-copy { margin-top: var(--space-lg); }
+.who-lead {
+  font-size: var(--text-lead);
+  color: var(--darker-grey);
+  margin-bottom: var(--space-md);
+}
+.who-note {
+  font-size: var(--text-small);
+  color: var(--grey);
+  font-style: italic;
+}
+
+/* ---------------------------------------------------------------------------
+   11 · Form / CTA
+   --------------------------------------------------------------------------- */
+.form-inner {
+  max-width: 42rem;
+  margin-inline: auto;
+  text-align: center;
+}
+.form-body {
+  margin-top: var(--space-sm);
+  font-size: var(--text-lead);
+  color: var(--darker-grey);
+}
+.form-inner .btn { margin-top: var(--space-lg); }
+.form-microcopy {
+  margin-top: var(--space-md);
+  font-size: var(--text-small);
+  color: var(--grey);
+}
+
+/* ---------------------------------------------------------------------------
+   12 · Footer
+   --------------------------------------------------------------------------- */
+.site-footer {
+  background: var(--white);
+  border-top: 1px solid var(--light-grey);
+  padding-block: var(--space-lg);
+}
+.footer-inner {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  flex-wrap: wrap;
+}
+.footer-line {
+  font-size: var(--text-small);
+  color: var(--grey);
+}
+
+/* ---------------------------------------------------------------------------
+   13 · Scroll-reveal (JS toggles .is-visible via IntersectionObserver)
+   --------------------------------------------------------------------------- */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity var(--dur-mid) var(--ease-out),
+              transform var(--dur-mid) var(--ease-out);
+}
+.reveal.is-visible {
+  opacity: 1;
+  transform: none;
+}
+/* Stagger delays (data-reveal-delay="1|2|3") */
+.reveal[data-reveal-delay="1"] { transition-delay: 0.10s; }
+.reveal[data-reveal-delay="2"] { transition-delay: 0.20s; }
+.reveal[data-reveal-delay="3"] { transition-delay: 0.30s; }
+
+/* ---------------------------------------------------------------------------
+   14 · Responsive — laptop-first, adapting down
+   --------------------------------------------------------------------------- */
+@media (max-width: 900px) {
+  :root {
+    --space-2xl: 7rem;
+    --space-xl: 5rem;
+  }
+
+  /* Collapse hero to a single column, copy first */
+  .hero-inner {
+    grid-template-columns: 1fr;
+    min-height: auto;
+    gap: var(--space-lg);
+  }
+  .hero-collage { order: 2; }
+
+  /* Stack programme + steps */
+  .programme-grid,
+  .steps { grid-template-columns: 1fr; }
+
+  /* On a single column the connector line no longer makes sense */
+  .steps-connector { display: none; }
+  .step { padding-left: 0; }
+
+  /* Reveal nav toggle, hide inline links until opened */
+  .nav-toggle { display: flex; }
+  .nav-links {
+    position: absolute;
+    top: 100%;
+    right: 0;
+    left: 0;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0;
+    background: var(--white);
+    border-bottom: 1px solid var(--light-grey);
+    padding: var(--space-sm) var(--wrap-pad);
+    max-height: 0;
+    overflow: hidden;
+    transition: max-height var(--dur-mid) var(--ease-out);
+  }
+  .nav-links.is-open { max-height: 22rem; }
+  .nav-links li { width: 100%; }
+  .nav-links a { display: block; width: 100%; padding: 0.85rem 0; }
+  .nav-links .nav-cta { display: inline-block; width: auto; margin-top: 0.5rem; }
+
+  .site-nav { position: static; }
+  .header-inner { position: relative; }
+}
+
+@media (max-width: 560px) {
+  .hero-collage { gap: 0.6rem; }
+  /* Reduce staggered offsets on small screens so nothing overflows */
+  .tile-a, .tile-b, .tile-c, .tile-d { transform: none; }
+
+  .footer-inner { flex-direction: column; align-items: flex-start; }
+
+  .logo-placeholder { font-size: 0.625rem; padding: 0.5rem 0.65rem; }
+}
+
+/* ---------------------------------------------------------------------------
+   15 · Reduced motion — respect the user's preference
+   Spatial motion collapses to a quick opacity fade; loops are disabled.
+   --------------------------------------------------------------------------- */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.001ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.001ms !important;
+    scroll-behavior: auto !important;
+  }
+
+  .reveal { opacity: 1; transform: none; }
+  .collage-tile { transform: none !important; }
+  .scroll-cue-line { animation: none; }
+  .steps-connector-fill { width: 100% !important; }
+}
