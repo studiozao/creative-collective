@@ -395,7 +395,7 @@ button:focus-visible {
    <<< SWAP >>> replace each url() with: url("assets/hero/your-photo.jpg"); */
 .img-hands  { background-image: url("assets/hero/hands.jpg"); }
 .img-screen { background-image: url("assets/hero/screen.jpg"); }
-.img-music  { background-image: url("assets/hero/music.jpg"); background-position: center 30%; }
+.img-music  { background-image: url("assets/hero/music.jpg"); }
 .img-market { background-image: url("assets/hero/market.jpg"); }
 .img-film   { background-image: linear-gradient(135deg, #122D54, #6B7280); }
 .img-craft  { background-image: linear-gradient(135deg, #4B5563, #D1D5DB); }

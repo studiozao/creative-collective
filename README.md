@@ -51,8 +51,8 @@ fast (Cmd/Ctrl+F).
    drop this list once the real photos are in):
    - Hands: *Potter-helen-dixon-at-work3.jpg* by Whippetsgalore, CC BY-SA 4.0
    - Screen: *Laptop with many charts on screen on cluttered desk.jpg* by rawpixel, CC0
-   - Music: *Musician Riley Baugus plays guitar...* by Harrison Keely, CC BY 4.0
-   - Market: *Winchcombe, North Street, Bank Holiday Street Fair...* by Michael Garlick, CC BY-SA 2.0
+   - Music (jewellery-making): *Making brass rings 1 (4).jpg* by W.carter, CC BY-SA 4.0
+   - Market (film production): *Nandan Lawande operating camera on the set of Vande Bharat via America.jpg* by Nandancine, CC BY-SA 4.0
 
 3. **Google Form URL** — in `index.html`, find the CTA button in the form
    section (`href="https://forms.gle/REPLACE_WITH_REAL_FORM_URL"`) and paste the
