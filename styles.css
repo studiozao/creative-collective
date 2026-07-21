@@ -37,9 +37,9 @@
   --space-xs:  0.5rem;
   --space-sm:  1rem;
   --space-md:  2rem;
-  --space-lg:  4rem;
-  --space-xl:  7rem;
-  --space-2xl: 11rem;   /* generous gap between sections — each is an "arrival" */
+  --space-lg:  3rem;
+  --space-xl:  4.5rem;
+  --space-2xl: 6.5rem;   /* gap between sections — generous but not cavernous */
 
   /* Layout */
   --wrap-max:  1200px;
@@ -339,8 +339,8 @@ button:focus-visible {
    --------------------------------------------------------------------------- */
 .hero {
   position: relative;
-  padding-top: var(--space-xl);
-  padding-bottom: var(--space-2xl);
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-lg);
   overflow: hidden;
 }
 .hero-inner {
@@ -348,7 +348,7 @@ button:focus-visible {
   grid-template-columns: 1.05fr 0.95fr;
   gap: clamp(2rem, 5vw, 5rem);
   align-items: center;
-  min-height: 70vh;
+  min-height: min(62vh, 34rem);
 }
 .hero-copy { max-width: 34rem; }
 
@@ -694,8 +694,9 @@ button:focus-visible {
    --------------------------------------------------------------------------- */
 @media (max-width: 900px) {
   :root {
-    --space-2xl: 7rem;
-    --space-xl: 5rem;
+    --space-2xl: 4.5rem;
+    --space-xl: 3.5rem;
+    --space-lg: 2.5rem;
   }
 
   /* Collapse hero to a single column, copy first */
