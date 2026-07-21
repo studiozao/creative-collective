@@ -1,6 +1,9 @@
 /* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4
- * Hallmark · genre: editorial · macrostructure: Specimen (deviations: filled
- * CTA retained for conversion; hero photography retained over "none/SVG")
+ * Hallmark · genre: editorial · macrostructure: Specimen-inspired, DE-NUMBERED
+ * at client request (the 01–05 section index and per-list-item hairline
+ * rules read as over-applied and were removed after review — see README's
+ * "Design rationale" section for the two-pass history). Deviations: filled
+ * CTA retained for conversion; hero photography retained over "none/SVG").
  * theme: client-locked hex palette (not OKLCH catalog) · nav: N9-inspired
  * (edge-aligned, quiet links, text+arrow secondary CTA) · footer: Ft1-inspired
  * (mast-headed) · enrichment: hero collage — 3 real photographs (credited in
@@ -8,11 +11,13 @@
  * ============================================================================
  * East Sussex Creative Collective — styles.css
  * ----------------------------------------------------------------------------
- * Redesigned from a generic 3-card-grid/AI-nav template into an editorial,
- * numbered-index layout for a creative-industry audience. See README for the
- * full rationale. Colour system uses the client's EXACT locked hex values.
- * Laptop-first; adapts down to mobile at the bottom of the file.
- * All motion respects prefers-reduced-motion (see end of file).
+ * Redesigned from a generic 3-card-grid/AI-nav template into an editorial
+ * layout for a creative-industry audience, then simplified further after
+ * client review (numbered section labels and most hairline dividers cut —
+ * only two rules remain on the whole page, each marking a real hierarchy
+ * break). See README for the full rationale. Colour system uses the
+ * client's EXACT locked hex values. Laptop-first; adapts down to mobile at
+ * the bottom of the file. All motion respects prefers-reduced-motion.
  * ============================================================================ */
 
 @import url("tokens.css");
@@ -227,14 +232,13 @@ button:focus-visible {
 }
 
 /* ---------------------------------------------------------------------------
-   4 · Section rhythm — deliberately varied padding, hairline dividers instead
-   of soft colour bands. Each section head carries a numbered index label
-   (01–05), stacked ABOVE the heading, in the mono outlier face — this is the
-   ordinal page-contents device, not a decorative eyebrow-per-card.
+   4 · Section rhythm — deliberately varied padding. Sections are separated
+   by whitespace alone; the two rules that remain on the page (below Hacks
+   in the programme section, above the footer copyright) each mark a real
+   hierarchy break rather than decorating every gap.
    --------------------------------------------------------------------------- */
 .section {
   position: relative;
-  border-top: 1px solid var(--color-light-grey);
 }
 .section-programme  { padding-block: var(--space-2xl) var(--space-xl); }
 .section-how        { padding-block: var(--space-xl) var(--space-2xl); }
@@ -243,16 +247,6 @@ button:focus-visible {
 .section-form       { padding-block: var(--space-2xl) var(--space-3xl); }
 
 .section-head { margin-bottom: var(--space-xl); max-width: 40rem; }
-
-.section-num {
-  display: block;
-  font-family: var(--font-mono);
-  font-size: 0.8125rem;
-  font-weight: 500;
-  letter-spacing: 0.1em;
-  color: var(--color-darker-grey); /* --color-grey fails 4.5:1 at this size */
-  margin-bottom: var(--space-sm);
-}
 
 .section-heading {
   font-size: var(--text-h2);
@@ -443,11 +437,7 @@ button:focus-visible {
 .programme-pair {
   display: grid;
   grid-template-columns: 1fr 1fr;
-  gap: var(--space-xl);
-}
-.programme-item:first-child {
-  padding-right: var(--space-xl);
-  border-right: 1px solid var(--color-light-grey);
+  gap: var(--space-2xl);
 }
 .programme-item .programme-title {
   font-size: var(--text-h3);
@@ -477,15 +467,15 @@ button:focus-visible {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--color-light-grey);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-2xl);
 }
 .process-step {
   display: grid;
   grid-template-columns: 4rem 1fr;
   gap: var(--space-lg);
-  align-items: baseline;
-  padding-block: var(--space-lg);
-  border-bottom: 1px solid var(--color-light-grey);
+  align-items: start;
 }
 .process-num {
   font-family: var(--font-display);
@@ -493,6 +483,9 @@ button:focus-visible {
   font-weight: 400;
   color: var(--color-grey); /* large text (3:1 floor) — light-grey was near-invisible */
   line-height: 1;
+  /* optical nudge: a serif numeral's cap-height sits slightly below its own
+     line-box top, so without this it reads a touch high next to the title */
+  margin-top: 0.1em;
 }
 .process-title {
   font-size: var(--text-h3);
@@ -503,7 +496,7 @@ button:focus-visible {
 
 .how-band {
   background: var(--color-navy);
-  margin-top: var(--space-xl);
+  margin-top: var(--space-lg);
   padding-block: var(--space-lg);
 }
 .how-band-text {
@@ -516,7 +509,7 @@ button:focus-visible {
 }
 
 .how-caveat {
-  margin-top: var(--space-md);
+  margin-top: var(--space-xl);
   font-size: var(--text-small);
   color: var(--color-darker-grey); /* --color-grey fails 4.5:1 at this size */
   max-width: 46rem;
@@ -530,7 +523,9 @@ button:focus-visible {
   list-style: none;
   margin: 0;
   padding: 0;
-  border-top: 1px solid var(--color-light-grey);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-md);
 }
 .check-item {
   display: flex;
@@ -538,8 +533,6 @@ button:focus-visible {
   gap: 1rem;
   font-size: var(--text-lead);
   color: var(--color-black);
-  padding-block: var(--space-md);
-  border-bottom: 1px solid var(--color-light-grey);
 }
 .check-mark {
   flex-shrink: 0;
@@ -588,7 +581,9 @@ button:focus-visible {
 
 /* ---------------------------------------------------------------------------
    11 · Footer — mast-headed: logos anchor the band, tagline beside,
-   copyright closes it below a hairline in small type.
+   copyright closes it in small type below, on spacing alone (one hairline
+   — above the whole footer — is enough; a second one right beneath it
+   just to separate the copyright line was one rule too many).
    --------------------------------------------------------------------------- */
 .site-footer {
   background: var(--color-white);
@@ -608,12 +603,10 @@ button:focus-visible {
 }
 .footer-bottom {
   margin-top: var(--space-md);
-  padding-top: var(--space-md);
-  border-top: 1px solid var(--color-light-grey);
 }
 .footer-copyright {
-  /* body face, not mono — the mono outlier is capped at 2 slots
-     (section-num + scroll-cue-text) per the 2+1 type rule */
+  /* body face, not mono — the mono outlier stays capped at its 2 slots
+     (see .scroll-cue-text) per the 2+1 type rule */
   font-size: 0.75rem;
   color: var(--color-darker-grey);
   text-align: left;
@@ -654,13 +647,7 @@ button:focus-visible {
   }
   .hero-collage { order: 2; }
 
-  .programme-pair { grid-template-columns: 1fr; gap: var(--space-lg); }
-  .programme-item:first-child {
-    padding-right: 0;
-    padding-bottom: var(--space-lg);
-    border-right: none;
-    border-bottom: 1px solid var(--color-light-grey);
-  }
+  .programme-pair { grid-template-columns: 1fr; gap: var(--space-xl); }
 
   .process-step { grid-template-columns: 1fr; gap: var(--space-xs); }
   .process-num { font-size: 1.75rem; }
