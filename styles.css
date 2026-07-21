@@ -390,13 +390,13 @@ button:focus-visible {
 }
 .collage-tile:hover .collage-img { transform: scale(1.05); }
 
-/* <<< SWAP >>> Placeholder collage imagery.
-   Replace each gradient below with:  background-image: url("assets/your-photo.jpg");
-   Subjects, per the brief, are on each figure's aria-label. */
-.img-hands  { background-image: linear-gradient(135deg, #122D54, #4B5563); }
-.img-screen { background-image: linear-gradient(135deg, #4B5563, #6B7280); }
-.img-music  { background-image: linear-gradient(135deg, #6B7280, #D1D5DB); }
-.img-market { background-image: linear-gradient(135deg, #e42544, #122D54); }
+/* Collage imagery — temporary Wikimedia Commons stock (credits in README),
+   standing in until real programme photography is available.
+   <<< SWAP >>> replace each url() with: url("assets/hero/your-photo.jpg"); */
+.img-hands  { background-image: url("assets/hero/hands.jpg"); }
+.img-screen { background-image: url("assets/hero/screen.jpg"); }
+.img-music  { background-image: url("assets/hero/music.jpg"); background-position: center 30%; }
+.img-market { background-image: url("assets/hero/market.jpg"); }
 .img-film   { background-image: linear-gradient(135deg, #122D54, #6B7280); }
 .img-craft  { background-image: linear-gradient(135deg, #4B5563, #D1D5DB); }
 
@@ -696,6 +696,9 @@ button:focus-visible {
   /* Full-viewport hero only makes sense with the two-column layout —
      on a single stacked column (copy + collage) it just adds dead air. */
   .hero { min-height: auto; }
+  /* The cue is meaningless once the hero no longer fills the screen — on a
+     stacked mobile layout it just ends up stranded below the fold. */
+  .scroll-cue { display: none; }
   .hero-inner {
     grid-template-columns: 1fr;
     min-height: auto;

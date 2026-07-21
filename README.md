@@ -36,14 +36,23 @@ fast (Cmd/Ctrl+F).
    *visual* height (not the same box) via `.logo-img` / `.logo-img-escc` in
    `styles.css` — adjust those two rules if either logo is replaced later.
 
-2. **Hero images** — the collage currently uses colour-gradient placeholders.
-   In `styles.css` find the `.img-hands`, `.img-screen`, `.img-music`,
-   `.img-market` (and optional `.img-film`, `.img-craft`) rules and replace
-   `background-image` with your photos, e.g.
-   `background-image: url("assets/hands.jpg");`. Briefed subjects are on each
-   figure's `aria-label` in `index.html`. Suggested export: ~800×1000px,
-   under 200KB each. The grid is built to look intentional with **4** images and
-   expands to **6** — uncomment tiles 5 & 6 in `index.html` if you have them.
+2. **Hero images — TEMPORARY, replace before launch.** The collage currently
+   uses real photos (not gradients), but they're generic Wikimedia Commons
+   stock, not actual programme photography — they were dropped in so the page
+   doesn't look unfinished while real images are sourced. Files live in
+   `assets/hero/` (`hands.jpg`, `screen.jpg`, `music.jpg`, `market.jpg`);
+   swap each one directly (keep the filename, or update the `url()` in
+   `styles.css` under `.img-hands` / `.img-screen` / `.img-music` /
+   `.img-market`). Suggested export: ~800×1000px, under 200KB each. The grid
+   is built to look intentional with **4** images and expands to **6** —
+   uncomment tiles 5 & 6 in `index.html` if you have them.
+
+   Current stand-in photo credits (all reused under their Commons licence —
+   drop this list once the real photos are in):
+   - Hands: *Potter-helen-dixon-at-work3.jpg* by Whippetsgalore, CC BY-SA 4.0
+   - Screen: *Laptop with many charts on screen on cluttered desk.jpg* by rawpixel, CC0
+   - Music: *Musician Riley Baugus plays guitar...* by Harrison Keely, CC BY 4.0
+   - Market: *Winchcombe, North Street, Bank Holiday Street Fair...* by Michael Garlick, CC BY-SA 2.0
 
 3. **Google Form URL** — in `index.html`, find the CTA button in the form
    section (`href="https://forms.gle/REPLACE_WITH_REAL_FORM_URL"`) and paste the
