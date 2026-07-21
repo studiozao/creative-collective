@@ -660,6 +660,16 @@ button:focus-visible {
   font-size: var(--text-small);
   color: var(--grey);
 }
+.footer-bottom {
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--light-grey);
+}
+.footer-copyright {
+  font-size: 0.8125rem;
+  color: var(--grey);
+  text-align: left;
+}
 
 /* ---------------------------------------------------------------------------
    13 · Scroll-reveal (JS toggles .is-visible via IntersectionObserver)
