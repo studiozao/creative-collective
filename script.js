@@ -4,10 +4,8 @@
    Vanilla JS, no dependencies. Handles:
      1. Scroll-reveal on entry (IntersectionObserver)
      2. Hero collage parallax drift on scroll
-     3. "How it works" connector line drawing in on scroll
-     4. Gentle step-number counter
-     5. Mobile nav toggle
-     6. CTA click analytics event (separate from page view)
+     3. Mobile nav toggle
+     4. CTA click analytics event (separate from page view)
    All motion is disabled when the user prefers reduced motion.
    ============================================================================ */
 
@@ -99,57 +97,7 @@
   }
 
   /* -------------------------------------------------------------------------
-     3 · "How it works" connector line + step counters
-     When the steps enter view: draw the navy connector fill across, and
-     gently count each step number up from 1.
-     ------------------------------------------------------------------------- */
-  var stepsEl = document.querySelector(".steps");
-  var connectorFill = document.querySelector(".steps-connector-fill");
-
-  var runConnector = function () {
-    if (connectorFill) connectorFill.style.width = "100%";
-    // Gentle counter on each step number
-    document.querySelectorAll(".step-num[data-count]").forEach(function (el) {
-      var target = parseInt(el.getAttribute("data-count"), 10);
-      if (isNaN(target)) return;
-      if (prefersReducedMotion) {
-        el.textContent = String(target);
-        return;
-      }
-      var current = 0;
-      var stepUp = function () {
-        current += 1;
-        el.textContent = String(current);
-        if (current < target) {
-          window.setTimeout(stepUp, 120);
-        }
-      };
-      el.textContent = "0";
-      stepUp();
-    });
-  };
-
-  if (stepsEl) {
-    if (prefersReducedMotion || !("IntersectionObserver" in window)) {
-      runConnector();
-    } else {
-      var stepsObserver = new IntersectionObserver(
-        function (entries, observer) {
-          entries.forEach(function (entry) {
-            if (entry.isIntersecting) {
-              runConnector();
-              observer.disconnect();
-            }
-          });
-        },
-        { threshold: 0.4 }
-      );
-      stepsObserver.observe(stepsEl);
-    }
-  }
-
-  /* -------------------------------------------------------------------------
-     4 · Mobile nav toggle
+     3 · Mobile nav toggle
      ------------------------------------------------------------------------- */
   var navToggle = document.querySelector(".nav-toggle");
   var navLinks = document.getElementById("nav-links");
@@ -170,7 +118,7 @@
   }
 
   /* -------------------------------------------------------------------------
-     5 · CTA click analytics event
+     4 · CTA click analytics event
      Fires a custom event on every CTA click, SEPARATE from the page view.
      Works with Plausible OR Google Analytics 4 — whichever you enabled in
      the <head> of index.html. Safe no-op if neither is present.

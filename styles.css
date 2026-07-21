@@ -1,69 +1,34 @@
-/* Hallmark · macrostructure: continuous-scroll long document · tone: editorial/considered · anchor hue: navy #122D54
-   ============================================================================
-   East Sussex Creative Collective — styles.css
-   ----------------------------------------------------------------------------
-   Colour system uses the EXACT brand hex values requested (no substitutions).
-   Laptop-first; adapts down to mobile at the bottom of the file.
-   All motion respects prefers-reduced-motion (see end of file).
-   ============================================================================ */
+/* Hallmark · pre-emit critique: P4 H4 E4 S4 R4 V4
+ * Hallmark · genre: editorial · macrostructure: Specimen (deviations: filled
+ * CTA retained for conversion; hero photography retained over "none/SVG")
+ * theme: client-locked hex palette (not OKLCH catalog) · nav: N9-inspired
+ * (edge-aligned, quiet links, text+arrow secondary CTA) · footer: Ft1-inspired
+ * (mast-headed) · enrichment: hero collage — 3 real photographs (credited in
+ * README) + 1 hand-built CSS specimen swatch in place of stock "design work"
+ * ============================================================================
+ * East Sussex Creative Collective — styles.css
+ * ----------------------------------------------------------------------------
+ * Redesigned from a generic 3-card-grid/AI-nav template into an editorial,
+ * numbered-index layout for a creative-industry audience. See README for the
+ * full rationale. Colour system uses the client's EXACT locked hex values.
+ * Laptop-first; adapts down to mobile at the bottom of the file.
+ * All motion respects prefers-reduced-motion (see end of file).
+ * ============================================================================ */
+
+@import url("tokens.css");
 
 /* ---------------------------------------------------------------------------
-   1 · Design tokens
-   --------------------------------------------------------------------------- */
-:root {
-  /* Brand palette — use exactly these */
-  --white:        #FFFFFF;
-  --black:        #000000;   /* primary heading & body text */
-  --navy:         #122D54;   /* headings, nav, primary structural colour */
-  --grey:         #6B7280;   /* secondary text, labels, borders, bullet dots */
-  --light-grey:   #D1D5DB;   /* dividers, card backgrounds, separation bands */
-  --darker-grey:  #4B5563;   /* hover states */
-  --red:          #e42544;   /* CTA + sparingly used highlights */
-  --red-hover:    #c51d38;   /* derived darker red for CTA hover (keeps AA) */
-
-  /* Typography */
-  --font-display: "Space Grotesk", system-ui, sans-serif;
-  --font-body:    "Inter", system-ui, -apple-system, sans-serif;
-
-  /* Fluid type scale (laptop-first, clamps down cleanly) */
-  --text-hero:    clamp(2.75rem, 6vw, 5.5rem);
-  --text-h2:      clamp(2rem, 3.6vw, 3.25rem);
-  --text-h3:      clamp(1.25rem, 1.6vw, 1.5rem);
-  --text-lead:    clamp(1.125rem, 1.5vw, 1.4rem);
-  --text-body:    clamp(1rem, 1.1vw, 1.125rem);
-  --text-small:   0.9375rem;
-
-  /* Spacing scale (4pt-based) */
-  --space-xs:  0.5rem;
-  --space-sm:  1rem;
-  --space-md:  2rem;
-  --space-lg:  3rem;
-  --space-xl:  4.5rem;
-  --space-2xl: 6.5rem;   /* gap between sections — generous but not cavernous */
-
-  /* Layout */
-  --wrap-max:  1200px;
-  --wrap-pad:  clamp(1.25rem, 5vw, 4rem);
-
-  /* Motion */
-  --dur-fast:  200ms;
-  --dur-mid:   600ms;
-  --dur-slow:  900ms;
-  --ease-out:  cubic-bezier(0.16, 1, 0.3, 1);
-  --ease-in-out: cubic-bezier(0.65, 0, 0.35, 1);
-}
-
-/* ---------------------------------------------------------------------------
-   2 · Reset & base
+   1 · Reset & base
    --------------------------------------------------------------------------- */
 *,
 *::before,
 *::after { box-sizing: border-box; }
 
 html {
-  scroll-behavior: smooth;       /* native smooth scroll */
-  scroll-padding-top: 6rem;      /* offset for fixed header on anchor jumps */
+  scroll-behavior: smooth;
+  scroll-padding-top: 6rem;
   -webkit-text-size-adjust: 100%;
+  overflow-x: clip;
 }
 
 body {
@@ -71,21 +36,27 @@ body {
   font-family: var(--font-body);
   font-size: var(--text-body);
   line-height: 1.6;
-  color: var(--black);
-  background: var(--white);
+  color: var(--color-black);
+  background: var(--color-white);
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
-  overflow-x: clip;              /* never allow horizontal scroll */
+  overflow-x: clip;
 }
 
 h1, h2, h3 {
   font-family: var(--font-display);
-  color: var(--navy);
+  color: var(--color-navy);
   line-height: 1.08;
-  letter-spacing: -0.02em;
+  letter-spacing: -0.01em;
   margin: 0;
   overflow-wrap: anywhere;
   min-width: 0;
+  font-weight: 600;
+}
+
+em {
+  font-style: italic;
+  font-weight: 500;
 }
 
 p { margin: 0; }
@@ -95,7 +66,6 @@ a { color: inherit; }
 img,
 svg { max-width: 100%; display: block; }
 
-/* Shared width wrapper */
 .wrap {
   width: 100%;
   max-width: var(--wrap-max);
@@ -103,14 +73,13 @@ svg { max-width: 100%; display: block; }
   padding-inline: var(--wrap-pad);
 }
 
-/* Accessible skip link */
 .skip-link {
   position: absolute;
   left: -9999px;
   top: 0;
-  z-index: 1000;
-  background: var(--navy);
-  color: var(--white);
+  z-index: var(--z-sticky);
+  background: var(--color-navy);
+  color: var(--color-white);
   padding: 0.75rem 1.25rem;
   border-radius: 0 0 6px 0;
   text-decoration: none;
@@ -118,46 +87,41 @@ svg { max-width: 100%; display: block; }
 }
 .skip-link:focus { left: 0; }
 
-/* Visible focus ring on every interactive element (shows instantly) */
 a:focus-visible,
 button:focus-visible {
-  outline: 3px solid var(--red);
+  outline: 3px solid var(--color-red);
   outline-offset: 3px;
   border-radius: 2px;
 }
 
 /* ---------------------------------------------------------------------------
-   3 · Buttons
+   2 · Buttons — solid, for the two real conversion moments only (hero + form)
    --------------------------------------------------------------------------- */
 .btn {
   display: inline-flex;
   align-items: center;
   gap: 0.5rem;
-  font-family: var(--font-display);
+  font-family: var(--font-body);
   font-weight: 600;
   font-size: 1rem;
   line-height: 1;
   text-decoration: none;
   padding: 1rem 1.75rem;
-  border-radius: 999px;
+  border-radius: var(--radius-pill);
   border: 0;
   cursor: pointer;
   white-space: nowrap;
-  transition: transform var(--dur-fast) var(--ease-out),
-              background-color var(--dur-fast) var(--ease-out),
-              box-shadow var(--dur-fast) var(--ease-out);
+  transition: background-color var(--dur-fast) var(--ease-out),
+              transform var(--dur-fast) var(--ease-out);
 }
 
-/* Primary CTA — red, used sparingly. White text passes AA (≈4.5:1). */
 .btn-primary {
-  background: var(--red);
-  color: var(--white);
-  box-shadow: 0 1px 2px rgba(18, 45, 84, 0.12);
+  background: var(--color-red);
+  color: var(--color-white);
 }
 .btn-primary:hover {
-  background: var(--red-hover);
+  background: var(--color-red-hover);
   transform: translateY(-2px);
-  box-shadow: 0 8px 24px rgba(228, 37, 68, 0.28);
 }
 .btn-primary:active { transform: translateY(0); }
 
@@ -167,26 +131,25 @@ button:focus-visible {
 }
 
 /* ---------------------------------------------------------------------------
-   4 · Header & nav
+   3 · Header — edge-aligned and quiet (N9-inspired). No blur, no glass;
+   a hairline rule is the only separation from the page.
    --------------------------------------------------------------------------- */
 .site-header {
   position: sticky;
   top: 0;
-  z-index: 100;
-  background: rgba(255, 255, 255, 0.88);
-  backdrop-filter: saturate(180%) blur(12px);
-  border-bottom: 1px solid var(--light-grey);
+  z-index: var(--z-sticky);
+  background: var(--color-white);
+  border-bottom: 1px solid var(--color-light-grey);
 }
 
 .header-inner {
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: var(--space-md);
+  gap: var(--space-lg);
   min-height: 4.75rem;
 }
 
-/* Logo lockup — two placeholder boxes with a thin vertical rule between */
 .logo-lockup {
   display: flex;
   align-items: center;
@@ -198,67 +161,51 @@ button:focus-visible {
   width: auto;
   object-fit: contain;
 }
-/* Studio Zao's lockup is a wide horizontal mark; ESCC's crest is more square —
-   sizing both to the same height (not the same box) keeps them visually balanced. */
 .logo-img-escc { height: 30px; }
 
 .logo-rule {
   width: 1px;
   height: 30px;
-  background: var(--light-grey);
+  background: var(--color-light-grey);
 }
 
-/* Nav */
 .site-nav { display: flex; align-items: center; }
 
 .nav-links {
   display: flex;
   align-items: center;
-  gap: 1.75rem;
+  gap: 2rem;
   list-style: none;
   margin: 0;
   padding: 0;
 }
 .nav-links a {
-  font-family: var(--font-display);
-  font-size: 0.9375rem;
-  font-weight: 500;
-  color: var(--navy);
+  font-family: var(--font-body);
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--color-darker-grey);
   text-decoration: none;
-  position: relative;
   padding: 0.35rem 0;
   transition: color var(--dur-fast) var(--ease-out);
 }
-/* Underline-draw hover */
-.nav-links a::after {
-  content: "";
-  position: absolute;
-  left: 0;
-  bottom: 0;
-  width: 100%;
-  height: 1.5px;
-  background: var(--navy);
-  transform: scaleX(0);
-  transform-origin: left;
-  transition: transform var(--dur-fast) var(--ease-out);
-}
-.nav-links a:hover { color: var(--darker-grey); }
-.nav-links a:hover::after { transform: scaleX(1); }
+.nav-links a:hover { color: var(--color-navy); }
 
-/* Join pill in nav */
+/* Nav CTA — quiet text+arrow, not a filled pill (the bold button is reserved
+   for the hero and final register moments so it isn't diluted here). */
 .nav-links .nav-cta {
-  background: var(--navy);
-  color: var(--white);
-  padding: 0.5rem 1.1rem;
-  border-radius: 999px;
+  color: var(--color-navy);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.3em;
 }
-.nav-links .nav-cta::after { display: none; }
-.nav-links .nav-cta:hover {
-  background: var(--darker-grey);
-  color: var(--white);
+.nav-links .nav-cta span {
+  transition: transform var(--dur-fast) var(--ease-out);
+  display: inline-block;
 }
+.nav-links .nav-cta:hover span { transform: translateX(3px); }
 
-/* Mobile nav toggle — hidden on laptop */
 .nav-toggle {
   display: none;
   flex-direction: column;
@@ -274,67 +221,60 @@ button:focus-visible {
   display: block;
   width: 24px;
   height: 2px;
-  background: var(--navy);
+  background: var(--color-navy);
   transition: transform var(--dur-fast) var(--ease-out),
               opacity var(--dur-fast) var(--ease-out);
 }
 
 /* ---------------------------------------------------------------------------
-   5 · Section rhythm & colour bleed
-   Alternating white / soft light-grey bands with smooth gradient transitions
-   so sections bleed into one another rather than cutting hard.
+   4 · Section rhythm — deliberately varied padding, hairline dividers instead
+   of soft colour bands. Each section head carries a numbered index label
+   (01–05), stacked ABOVE the heading, in the mono outlier face — this is the
+   ordinal page-contents device, not a decorative eyebrow-per-card.
    --------------------------------------------------------------------------- */
 .section {
   position: relative;
-  padding-block: var(--space-2xl);
+  border-top: 1px solid var(--color-light-grey);
 }
+.section-programme  { padding-block: var(--space-2xl) var(--space-xl); }
+.section-how        { padding-block: var(--space-xl) var(--space-2xl); }
+.section-eligibility{ padding-block: var(--space-xl); }
+.section-who        { padding-block: var(--space-2xl); background: #FAFAFA; }
+.section-form       { padding-block: var(--space-2xl) var(--space-3xl); }
 
-/* Soft gradient bleed from white into a light-grey band and back.
-   Programme & Who sit on white; a gentle grey wash frames How-it-works and
-   the form so the page reads as continuous colour, not stacked slabs. */
-.section-how {
-  background: linear-gradient(
-    180deg,
-    var(--white) 0%,
-    #eef0f3 12%,
-    #eef0f3 88%,
-    var(--white) 100%
-  );
-}
-.section-eligibility {
-  background: var(--white);
-}
-.section-who {
-  background: linear-gradient(180deg, var(--white) 0%, #f4f5f7 50%, var(--white) 100%);
-}
-.section-form {
-  background: linear-gradient(180deg, var(--white) 0%, #eef0f3 45%, #e7e9ed 100%);
-}
+.section-head { margin-bottom: var(--space-xl); max-width: 40rem; }
 
-/* Section headers */
-.section-head { margin-bottom: var(--space-lg); max-width: 46rem; }
+.section-num {
+  display: block;
+  font-family: var(--font-mono);
+  font-size: 0.8125rem;
+  font-weight: 500;
+  letter-spacing: 0.1em;
+  color: var(--color-darker-grey); /* --color-grey fails 4.5:1 at this size */
+  margin-bottom: var(--space-sm);
+}
 
 .section-heading {
   font-size: var(--text-h2);
-  font-weight: 700;
 }
 
 .section-intro {
-  margin-top: var(--space-sm);
+  margin-top: var(--space-md);
   font-size: var(--text-lead);
-  color: var(--darker-grey);
-  max-width: 42rem;
+  color: var(--color-darker-grey);
+  max-width: 38rem;
 }
 
 /* ---------------------------------------------------------------------------
-   6 · Hero
+   5 · Hero — asymmetric two-column, serif display with an italic flourish
    --------------------------------------------------------------------------- */
 .hero {
   position: relative;
   display: grid;
-  grid-template-rows: 1fr auto; /* content centers in the first row, cue sits in its own row below — never beside it */
-  min-height: calc(100vh - 4.75rem); /* fill the viewport below the sticky header */
-  padding-block: var(--space-lg);
+  grid-template-rows: 1fr auto;
+  min-height: calc(100vh - 4.75rem);
+  padding-top: var(--space-lg);
+  padding-bottom: var(--space-xl); /* heavier than top — pulls the hero into the page */
   overflow: hidden;
 }
 .hero-inner {
@@ -349,21 +289,21 @@ button:focus-visible {
 
 .hero-heading {
   font-size: var(--text-hero);
-  font-weight: 700;
-  color: var(--navy);
+  font-weight: 600;
+  color: var(--color-navy);
 }
+.hero-heading em { color: var(--color-red); }
 
 .hero-subhead {
   margin-top: var(--space-md);
+  font-family: var(--font-body);
   font-size: var(--text-lead);
-  color: var(--darker-grey);
+  color: var(--color-darker-grey);
   max-width: 30rem;
 }
 
 .hero-copy .btn { margin-top: var(--space-lg); }
 
-/* Hero collage — flexible grid that stays intentional with 4 tiles.
-   Uses an asymmetric 2-col layout with staggered vertical offsets. */
 .hero-collage {
   display: grid;
   grid-template-columns: repeat(2, minmax(0, 1fr));
@@ -372,12 +312,11 @@ button:focus-visible {
 }
 .collage-tile {
   margin: 0;
-  border-radius: 10px;
+  border-radius: 6px;
   overflow: hidden;
   will-change: transform;
-  box-shadow: 0 12px 40px rgba(18, 45, 84, 0.10);
+  box-shadow: 0 1px 2px rgba(18, 45, 84, 0.06);
 }
-/* Staggered offsets so 4 tiles feel composed, not gridded */
 .tile-a { transform: translateY(-1.5rem); }
 .tile-b { transform: translateY(1.25rem); }
 .tile-c { transform: translateY(-0.5rem); }
@@ -388,21 +327,57 @@ button:focus-visible {
   background-size: cover;
   background-position: center;
   transition: transform var(--dur-slow) var(--ease-out);
+  position: relative;
 }
 .collage-tile:hover .collage-img { transform: scale(1.05); }
 
-/* Collage imagery — temporary Wikimedia Commons stock (credits in README),
-   standing in until real programme photography is available.
-   <<< SWAP >>> replace each url() with: url("assets/hero/your-photo.jpg"); */
+/* <<< SWAP >>> real programme photography — see README for current credits */
 .img-hands  { background-image: url("assets/hero/hands.jpg"); }
-.img-screen { background-image: url("assets/hero/screen.jpg"); }
 .img-music  { background-image: url("assets/hero/music.jpg"); }
 .img-market { background-image: url("assets/hero/market.jpg"); }
-.img-film   { background-image: linear-gradient(135deg, #122D54, #6B7280); }
-.img-craft  { background-image: linear-gradient(135deg, #4B5563, #D1D5DB); }
 
-/* Scroll cue — a normal grid row below the hero content (see .hero), not
-   absolutely positioned, so it can never land beside the collage. */
+/* Hand-built specimen swatch standing in for "design work on a screen" —
+   no stock photo could represent this honestly, so this tile is composed
+   entirely in CSS: colour swatches + a type specimen mark + a rule. */
+.img-screen {
+  background: var(--color-navy);
+  overflow: hidden;
+}
+.specimen-swatch {
+  position: absolute;
+  border-radius: 3px;
+}
+.specimen-swatch-a {
+  top: 12%; left: 10%; width: 34%; height: 22%;
+  background: var(--color-red);
+}
+.specimen-swatch-b {
+  top: 12%; left: 48%; width: 42%; height: 14%;
+  background: var(--color-light-grey);
+}
+.specimen-swatch-c {
+  top: 30%; left: 48%; width: 42%; height: 8%;
+  background: var(--color-grey);
+}
+.specimen-mark {
+  position: absolute;
+  bottom: 14%;
+  left: 10%;
+  font-family: var(--font-display);
+  font-style: italic;
+  font-size: 3rem;
+  color: var(--color-white);
+  line-height: 1;
+}
+.specimen-rule {
+  position: absolute;
+  bottom: 10%;
+  left: 10%;
+  right: 10%;
+  height: 1px;
+  background: rgba(255, 255, 255, 0.28);
+}
+
 .scroll-cue {
   justify-self: center;
   margin-top: var(--space-md);
@@ -411,18 +386,18 @@ button:focus-visible {
   align-items: center;
   gap: 0.5rem;
   text-decoration: none;
-  color: var(--grey);
+  color: var(--color-darker-grey); /* --color-grey fails 4.5:1 at this size */
 }
 .scroll-cue-text {
-  font-family: var(--font-display);
-  font-size: 0.75rem;
+  font-family: var(--font-mono);
+  font-size: 0.6875rem;
   letter-spacing: 0.18em;
   text-transform: uppercase;
 }
 .scroll-cue-line {
   width: 1px;
   height: 44px;
-  background: var(--grey);
+  background: var(--color-grey);
   transform-origin: top;
   animation: scrollCue 2.2s var(--ease-in-out) infinite;
 }
@@ -433,42 +408,58 @@ button:focus-visible {
 }
 
 /* ---------------------------------------------------------------------------
-   7 · Programme blocks
+   6 · Programme — asymmetric editorial index, not a 3-card grid.
+   Hacks leads at full width; Mentoring Sprints + The Collective pair beneath,
+   divided by a single hairline rule. Icons sit inline with their heading.
    --------------------------------------------------------------------------- */
-.programme-grid {
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.5rem, 3vw, 3rem);
-}
-.programme-block {
-  padding: var(--space-md);
-  border: 1px solid var(--light-grey);
-  border-radius: 12px;
-  background: var(--white);
-  transition: transform var(--dur-mid) var(--ease-out),
-              box-shadow var(--dur-mid) var(--ease-out),
-              border-color var(--dur-mid) var(--ease-out);
-}
-.programme-block:hover {
-  transform: translateY(-4px);
-  border-color: var(--grey);
-  box-shadow: 0 18px 48px rgba(18, 45, 84, 0.08);
-}
-.block-icon {
-  display: inline-flex;
-  color: var(--navy);      /* line-art icon: navy stroke, not filled colour */
+.programme-index { display: flex; flex-direction: column; gap: var(--space-xl); }
+
+.programme-head {
+  display: flex;
+  align-items: center;
+  gap: 0.75rem;
   margin-bottom: var(--space-sm);
 }
-.block-icon svg { width: 40px; height: 40px; }
-.block-title {
-  font-size: var(--text-h3);
-  font-weight: 600;
-  margin-bottom: 0.75rem;
+.programme-icon {
+  display: inline-flex;
+  color: var(--color-red);
+  flex-shrink: 0;
 }
-.block-body { color: var(--darker-grey); }
+.programme-icon svg { width: 28px; height: 28px; }
+
+.programme-lead {
+  padding-bottom: var(--space-xl);
+  border-bottom: 1px solid var(--color-light-grey);
+}
+.programme-lead .programme-title {
+  font-size: var(--text-h2);
+}
+.programme-lead .programme-body {
+  font-size: var(--text-lead);
+  color: var(--color-darker-grey);
+  max-width: var(--measure);
+}
+
+.programme-pair {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-xl);
+}
+.programme-item:first-child {
+  padding-right: var(--space-xl);
+  border-right: 1px solid var(--color-light-grey);
+}
+.programme-item .programme-title {
+  font-size: var(--text-h3);
+}
+.programme-item .programme-body {
+  color: var(--color-darker-grey);
+  max-width: 32rem;
+}
 
 /* ---------------------------------------------------------------------------
-   8 · How it works
+   7 · How it works — numbered process, large serif numerals, hairline
+   dividers between steps instead of a circle+connector-line device.
    --------------------------------------------------------------------------- */
 .how-opening {
   max-width: 44rem;
@@ -478,64 +469,40 @@ button:focus-visible {
   font-family: var(--font-display);
   font-size: var(--text-lead);
   font-weight: 500;
-  color: var(--navy);
+  color: var(--color-navy);
   line-height: 1.4;
 }
 
-/* Steps with an animated connector line running through the numbers */
-.steps {
-  position: relative;
-  display: grid;
-  grid-template-columns: repeat(3, minmax(0, 1fr));
-  gap: clamp(1.5rem, 3vw, 3rem);
+.process {
   list-style: none;
   margin: 0;
   padding: 0;
-  counter-reset: step;
+  border-top: 1px solid var(--color-light-grey);
 }
-/* Connector track sits behind the number row */
-.steps-connector {
-  position: absolute;
-  top: 26px;              /* aligns with vertical centre of .step-num */
-  left: 8%;
-  right: 8%;
-  height: 2px;
-  background: var(--light-grey);
-  z-index: 0;
+.process-step {
+  display: grid;
+  grid-template-columns: 4rem 1fr;
+  gap: var(--space-lg);
+  align-items: baseline;
+  padding-block: var(--space-lg);
+  border-bottom: 1px solid var(--color-light-grey);
 }
-.steps-connector-fill {
-  display: block;
-  height: 100%;
-  width: 0;              /* animated to 100% on scroll (see script.js) */
-  background: var(--navy);
-  transition: width 1.2s var(--ease-in-out);
-}
-.step { position: relative; z-index: 1; }
-.step-num {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 52px;
-  height: 52px;
-  border-radius: 50%;
-  background: var(--white);
-  border: 2px solid var(--navy);
-  color: var(--navy);
+.process-num {
   font-family: var(--font-display);
-  font-size: 1.375rem;
-  font-weight: 700;
-  margin-bottom: var(--space-sm);
+  font-size: var(--text-num);
+  font-weight: 400;
+  color: var(--color-grey); /* large text (3:1 floor) — light-grey was near-invisible */
+  line-height: 1;
 }
-.step-title {
+.process-title {
   font-size: var(--text-h3);
   font-weight: 600;
   margin-bottom: 0.5rem;
 }
-.step-body { color: var(--darker-grey); }
+.process-body { color: var(--color-darker-grey); }
 
-/* Light-grey community band */
 .how-band {
-  background: var(--light-grey);
+  background: var(--color-navy);
   margin-top: var(--space-xl);
   padding-block: var(--space-lg);
 }
@@ -543,104 +510,89 @@ button:focus-visible {
   font-family: var(--font-display);
   font-size: var(--text-lead);
   font-weight: 500;
-  color: var(--navy);
+  color: var(--color-white);
   max-width: 48rem;
   line-height: 1.45;
 }
 
-/* Quieter caveat — on white so grey text keeps contrast */
 .how-caveat {
   margin-top: var(--space-md);
   font-size: var(--text-small);
-  color: var(--grey);
+  color: var(--color-darker-grey); /* --color-grey fails 4.5:1 at this size */
   max-width: 46rem;
 }
 
 /* ---------------------------------------------------------------------------
-   9 · Eligibility
+   8 · Eligibility
    --------------------------------------------------------------------------- */
 .eligibility-inner { max-width: 52rem; }
 .checklist {
   list-style: none;
   margin: 0;
   padding: 0;
-  display: grid;
-  gap: var(--space-md);
+  border-top: 1px solid var(--color-light-grey);
 }
 .check-item {
   display: flex;
-  align-items: flex-start;
+  align-items: baseline;
   gap: 1rem;
   font-size: var(--text-lead);
-  color: var(--black);
+  color: var(--color-black);
+  padding-block: var(--space-md);
+  border-bottom: 1px solid var(--color-light-grey);
 }
-.check-dot {
+.check-mark {
   flex-shrink: 0;
-  width: 12px;
-  height: 12px;
-  margin-top: 0.55rem;
-  border-radius: 50%;
-  border: 2px solid var(--grey);   /* grey bullet dots, per brief */
+  font-family: var(--font-mono);
+  color: var(--color-red);
 }
 .eligibility-close {
   margin-top: var(--space-lg);
   font-size: var(--text-lead);
-  color: var(--darker-grey);
+  color: var(--color-darker-grey);
   max-width: 40rem;
 }
 
 /* ---------------------------------------------------------------------------
-   10 · Who's behind this
+   9 · Who's behind this
    --------------------------------------------------------------------------- */
-.who-inner {
-  max-width: 46rem;
-  margin-inline: auto;
-  text-align: center;
-}
-.who-icon {
-  display: inline-flex;
-  color: var(--navy);
-  margin-bottom: var(--space-md);
-}
-.who-icon svg { width: 48px; height: 48px; }
+.who-inner { max-width: 46rem; }
 .who-copy { margin-top: var(--space-lg); }
 .who-lead {
   font-size: var(--text-lead);
-  color: var(--darker-grey);
+  color: var(--color-darker-grey);
   margin-bottom: var(--space-md);
+  max-width: var(--measure);
 }
 .who-note {
   font-size: var(--text-small);
-  color: var(--grey);
+  color: var(--color-darker-grey); /* --color-grey fails 4.5:1 at this size */
   font-style: italic;
 }
 
 /* ---------------------------------------------------------------------------
-   11 · Form / CTA
+   10 · Form / CTA
    --------------------------------------------------------------------------- */
-.form-inner {
-  max-width: 42rem;
-  margin-inline: auto;
-  text-align: center;
-}
+.form-inner { max-width: 42rem; }
 .form-body {
   margin-top: var(--space-sm);
   font-size: var(--text-lead);
-  color: var(--darker-grey);
+  color: var(--color-darker-grey);
 }
 .form-inner .btn { margin-top: var(--space-lg); }
 .form-microcopy {
   margin-top: var(--space-md);
   font-size: var(--text-small);
-  color: var(--grey);
+  color: var(--color-darker-grey); /* --color-grey fails 4.5:1 at this size */
 }
 
 /* ---------------------------------------------------------------------------
-   12 · Footer
+   11 · Footer — mast-headed: logos anchor the band, tagline beside,
+   copyright closes it below a hairline in small type.
    --------------------------------------------------------------------------- */
 .site-footer {
-  background: var(--white);
-  border-top: 1px solid var(--light-grey);
+  background: var(--color-white);
+  border-top: 1px solid var(--color-light-grey);
   padding-block: var(--space-lg);
 }
 .footer-inner {
@@ -652,25 +604,27 @@ button:focus-visible {
 }
 .footer-line {
   font-size: var(--text-small);
-  color: var(--grey);
+  color: var(--color-darker-grey); /* --color-grey fails 4.5:1 at this size */
 }
 .footer-bottom {
   margin-top: var(--space-md);
   padding-top: var(--space-md);
-  border-top: 1px solid var(--light-grey);
+  border-top: 1px solid var(--color-light-grey);
 }
 .footer-copyright {
-  font-size: 0.8125rem;
-  color: var(--grey);
+  /* body face, not mono — the mono outlier is capped at 2 slots
+     (section-num + scroll-cue-text) per the 2+1 type rule */
+  font-size: 0.75rem;
+  color: var(--color-darker-grey);
   text-align: left;
 }
 
 /* ---------------------------------------------------------------------------
-   13 · Scroll-reveal (JS toggles .is-visible via IntersectionObserver)
+   12 · Scroll-reveal
    --------------------------------------------------------------------------- */
 .reveal {
   opacity: 0;
-  transform: translateY(24px);
+  transform: translateY(20px);
   transition: opacity var(--dur-mid) var(--ease-out),
               transform var(--dur-mid) var(--ease-out);
 }
@@ -678,43 +632,39 @@ button:focus-visible {
   opacity: 1;
   transform: none;
 }
-/* Stagger delays (data-reveal-delay="1|2|3") */
-.reveal[data-reveal-delay="1"] { transition-delay: 0.10s; }
-.reveal[data-reveal-delay="2"] { transition-delay: 0.20s; }
-.reveal[data-reveal-delay="3"] { transition-delay: 0.30s; }
+.reveal[data-reveal-delay="1"] { transition-delay: 0.08s; }
+.reveal[data-reveal-delay="2"] { transition-delay: 0.16s; }
+.reveal[data-reveal-delay="3"] { transition-delay: 0.24s; }
 
 /* ---------------------------------------------------------------------------
-   14 · Responsive — laptop-first, adapting down
+   13 · Responsive
    --------------------------------------------------------------------------- */
 @media (max-width: 900px) {
   :root {
-    --space-2xl: 4.5rem;
-    --space-xl: 3.5rem;
-    --space-lg: 2.5rem;
+    --space-2xl: 4rem;
+    --space-xl: 3rem;
+    --space-lg: 2rem;
   }
 
-  /* Full-viewport hero only makes sense with the two-column layout —
-     on a single stacked column (copy + collage) it just adds dead air. */
   .hero { min-height: auto; }
-  /* The cue is meaningless once the hero no longer fills the screen — on a
-     stacked mobile layout it just ends up stranded below the fold. */
   .scroll-cue { display: none; }
   .hero-inner {
     grid-template-columns: 1fr;
-    min-height: auto;
     gap: var(--space-lg);
   }
   .hero-collage { order: 2; }
 
-  /* Stack programme + steps */
-  .programme-grid,
-  .steps { grid-template-columns: 1fr; }
+  .programme-pair { grid-template-columns: 1fr; gap: var(--space-lg); }
+  .programme-item:first-child {
+    padding-right: 0;
+    padding-bottom: var(--space-lg);
+    border-right: none;
+    border-bottom: 1px solid var(--color-light-grey);
+  }
 
-  /* On a single column the connector line no longer makes sense */
-  .steps-connector { display: none; }
-  .step { padding-left: 0; }
+  .process-step { grid-template-columns: 1fr; gap: var(--space-xs); }
+  .process-num { font-size: 1.75rem; }
 
-  /* Reveal nav toggle, hide inline links until opened */
   .nav-toggle { display: flex; }
   .nav-links {
     position: absolute;
@@ -724,8 +674,8 @@ button:focus-visible {
     flex-direction: column;
     align-items: flex-start;
     gap: 0;
-    background: var(--white);
-    border-bottom: 1px solid var(--light-grey);
+    background: var(--color-white);
+    border-bottom: 1px solid var(--color-light-grey);
     padding: var(--space-sm) var(--wrap-pad);
     max-height: 0;
     overflow: hidden;
@@ -734,7 +684,7 @@ button:focus-visible {
   .nav-links.is-open { max-height: 22rem; }
   .nav-links li { width: 100%; }
   .nav-links a { display: block; width: 100%; padding: 0.85rem 0; }
-  .nav-links .nav-cta { display: inline-block; width: auto; margin-top: 0.5rem; }
+  .nav-links .nav-cta { display: inline-flex; width: auto; margin-top: 0.5rem; }
 
   .site-nav { position: static; }
   .header-inner { position: relative; }
@@ -742,18 +692,13 @@ button:focus-visible {
 
 @media (max-width: 560px) {
   .hero-collage { gap: 0.6rem; }
-  /* Reduce staggered offsets on small screens so nothing overflows */
   .tile-a, .tile-b, .tile-c, .tile-d { transform: none; }
-
+  .specimen-mark { font-size: 2.25rem; }
   .footer-inner { flex-direction: column; align-items: flex-start; }
-
-  .logo-img { height: 26px; }
-  .logo-img-escc { height: 23px; }
 }
 
 /* ---------------------------------------------------------------------------
-   15 · Reduced motion — respect the user's preference
-   Spatial motion collapses to a quick opacity fade; loops are disabled.
+   14 · Reduced motion
    --------------------------------------------------------------------------- */
 @media (prefers-reduced-motion: reduce) {
   html { scroll-behavior: auto; }
@@ -770,5 +715,4 @@ button:focus-visible {
   .reveal { opacity: 1; transform: none; }
   .collage-tile { transform: none !important; }
   .scroll-cue-line { animation: none; }
-  .steps-connector-fill { width: 100% !important; }
 }

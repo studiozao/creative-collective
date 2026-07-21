@@ -11,8 +11,10 @@ No frameworks, no build step. Plain HTML, CSS and vanilla JS.
 | File | Purpose |
 | --- | --- |
 | `index.html` | Page structure and copy |
-| `styles.css` | All styling, brand tokens, responsive rules, motion |
-| `script.js` | Scroll reveals, hero parallax, connector animation, nav, analytics event |
+| `styles.css` | Component styles — imports `tokens.css`, references tokens by name throughout |
+| `tokens.css` | Design tokens (colour, type, spacing, motion) — portable, reusable in other tooling |
+| `script.js` | Scroll reveals, hero parallax, mobile nav, analytics event |
+| `.hallmark/log.json` | Design-system provenance record (see "Design rationale" below) |
 | `README.md` | This file |
 
 ## Running it
@@ -36,23 +38,27 @@ fast (Cmd/Ctrl+F).
    *visual* height (not the same box) via `.logo-img` / `.logo-img-escc` in
    `styles.css` — adjust those two rules if either logo is replaced later.
 
-2. **Hero images — TEMPORARY, replace before launch.** The collage currently
-   uses real photos (not gradients), but they're generic Wikimedia Commons
-   stock, not actual programme photography — they were dropped in so the page
-   doesn't look unfinished while real images are sourced. Files live in
-   `assets/hero/` (`hands.jpg`, `screen.jpg`, `music.jpg`, `market.jpg`);
-   swap each one directly (keep the filename, or update the `url()` in
-   `styles.css` under `.img-hands` / `.img-screen` / `.img-music` /
-   `.img-market`). Suggested export: ~800×1000px, under 200KB each. The grid
-   is built to look intentional with **4** images and expands to **6** —
-   uncomment tiles 5 & 6 in `index.html` if you have them.
+2. **Hero images — TEMPORARY, replace before launch.** Three of the four
+   collage tiles use real photos — generic (but real, credited) stock, not
+   actual programme photography, dropped in so the page doesn't look
+   unfinished. Files live in `assets/hero/` (`hands.jpg`, `music.jpg`,
+   `market.jpg`); swap each directly, or update the `url()` in `styles.css`
+   under `.img-hands` / `.img-music` / `.img-market`. Suggested export:
+   ~800×1000px, under 200KB each.
+
+   The **fourth tile** (`.img-screen`, standing in for "design work on a
+   screen") is deliberately **not** a stock photo — no honest match exists on
+   the free-image libraries we checked, so it's a small hand-built CSS
+   composition (colour swatches + a type mark) instead. Replace it with a
+   real photo whenever you have one: delete the `.specimen-*` spans in
+   `index.html`'s `.img-screen` figure and add a `background-image: url(...)`
+   to `.img-screen` in `styles.css`, same as the other three tiles.
 
    Current stand-in photo credits (all reused under their Commons licence —
    drop this list once the real photos are in):
    - Hands: *Potter-helen-dixon-at-work3.jpg* by Whippetsgalore, CC BY-SA 4.0
-   - Screen: *Laptop with many charts on screen on cluttered desk.jpg* by rawpixel, CC0
-   - Music (jewellery-making): *Making brass rings 1 (4).jpg* by W.carter, CC BY-SA 4.0
-   - Market (film production): *Nandan Lawande operating camera on the set of Vande Bharat via America.jpg* by Nandancine, CC BY-SA 4.0
+   - Jewellery-making: *Making brass rings 1 (4).jpg* by W.carter, CC BY-SA 4.0
+   - Film production: *Nandan Lawande operating camera on the set of Vande Bharat via America.jpg* by Nandancine, CC BY-SA 4.0
 
 3. **Google Form URL** — in `index.html`, find the CTA button in the form
    section (`href="https://forms.gle/REPLACE_WITH_REAL_FORM_URL"`) and paste the
@@ -79,47 +85,77 @@ fast (Cmd/Ctrl+F).
 
 ## Brand system (as implemented)
 
-Colours are used exactly as specified (defined as CSS variables at the top of
-`styles.css`):
+Colours are the client's exact locked hex values (defined in `tokens.css`):
 
 | Token | Value | Use |
 | --- | --- | --- |
-| `--white` | `#FFFFFF` | Background |
-| `--black` | `#000000` | Primary heading & body text |
-| `--navy` | `#122D54` | Headings, nav, structural colour |
-| `--grey` | `#6B7280` | Secondary text, labels, bullet dots |
-| `--light-grey` | `#D1D5DB` | Dividers, cards, section bands |
-| `--darker-grey` | `#4B5563` | Hover states, longer body text |
-| `--red` | `#e42544` | CTA buttons + sparing highlights |
+| `--color-white` | `#FFFFFF` | Background |
+| `--color-black` | `#000000` | Primary body text |
+| `--color-navy` | `#122D54` | Headings, structural colour |
+| `--color-grey` | `#6B7280` | Large/decorative text only — fails 4.5:1 at small sizes, see below |
+| `--color-light-grey` | `#D1D5DB` | Hairline dividers |
+| `--color-darker-grey` | `#4B5563` | Small body text, captions, footer type |
+| `--color-red` | `#E42544` | CTA buttons + sparing highlights |
 
-> Note: `--red-hover` (`#c51d38`) is a slightly darker red derived for button
-> hover so white button text keeps AA contrast. If you'd rather not have a
-> derived shade, change it in `styles.css`.
+> Note: `--color-red-hover` (`#C51D38`) is a slightly darker red derived for
+> button hover so white button text keeps AA contrast. `--color-grey` reads
+> at roughly 4.3:1 against white — fine for large text (≥18px bold / 24px
+> regular) but under the 4.5:1 floor for small body copy, so small text
+> (captions, footer, section numerals) uses `--color-darker-grey` instead.
+> Both are the client's own specified greys — this is about *which* one to
+> reach for, not a substitution.
 
 ### Typography
 
-- **Display / headings:** Space Grotesk
-- **Body:** Inter
-- Both loaded from Google Fonts in the `<head>`.
+- **Display:** Fraunces (serif, variable, expressive italic) — Google Fonts
+- **Body:** Switzer (clean neutral sans) — Fontshare
+- **Numerals/labels only:** JetBrains Mono — Google Fonts, used in exactly two
+  places (section index numbers, hero scroll cue) per the "outlier face" rule
 
-If the real Studio Zao typeface becomes available, swap the `<link>` in the
-`<head>` and update `--font-display` / `--font-body` in `styles.css`.
-Alternative confident sans pairings that work with this layout: *Sora + Inter*,
-*Familjen Grotesk + Inter*, or *Archivo + IBM Plex Sans*.
+Previously Space Grotesk + Inter — replaced in the July 2026 redesign (see
+below) because that pairing is the single most common LLM-default font
+combination and read as generic rather than considered.
 
 ## Accessibility & motion
 
-- Semantic HTML, correct heading order, alt text / `aria-label` on all imagery.
+- Semantic HTML, correct heading order, alt text / `aria-label` on all imagery
+  and decorative elements (the hand-built specimen swatch is `aria-hidden`).
 - Keyboard navigable, visible focus rings, skip-to-content link.
-- Colour contrast checked (navy and darker-grey used for body text on light
-  bands where plain grey would fail; white-on-red CTA passes AA at ≈4.5:1).
+- Colour contrast verified pair-by-pair — see the brand system table above for
+  which grey to use where.
 - All animation respects `prefers-reduced-motion` — spatial motion collapses to
   a quick fade and looping animations are disabled.
 
-## Notes on structure
+## Design rationale (July 2026 redesign)
 
-The page is a continuous, immersive scroll (Apple-product-page spirit): generous
-spacing between sections, soft white↔light-grey gradient bleed between bands,
-content revealing on entry, subtle hero parallax, and a connector line that
-draws in through "How it works". Scroll-snap was deliberately **not** used — in
-testing it fought natural scrolling; the smooth continuous flow reads better.
+The original build used a generic template shape — a centred-ish hero, a
+3-column icon-card grid for the programme offerings, a circle-and-connector-
+line "3 steps" pattern, and a sticky nav with a blurred glass background. That
+shape is genre-blind: it's the same structure a SaaS product page, a bakery,
+and a council-funded creative programme would all get by default, and it
+reads as generic to exactly the audience (designers, filmmakers, musicians,
+makers) this page is trying to reach.
+
+The redesign keeps every word of copy and the same six sections, but changes
+the structural fingerprint:
+
+- **Programme section** — the three offerings (Hacks / Mentoring Sprints /
+  The Collective) were an equal 3-card grid; now Hacks leads at full width
+  (it's genuinely the primary entry point) with the other two paired beneath,
+  divided by a hairline rule instead of card borders.
+- **How it works** — the circle-icon + animated connector-line steps became a
+  simpler numbered list with large serif numerals, no JS-driven line-drawing
+  needed.
+- **Section index** — each major section carries a small numbered label
+  (01–05) above its heading, in the same order as the nav links, so the page
+  reads as a considered, ordered whole rather than a stack of disconnected
+  blocks.
+- **Header** — dropped the blurred glass background and the filled pill
+  "Join" button; nav links are now quiet small-caps text, and the CTA is a
+  text+arrow link (the one bold filled button stays reserved for the hero
+  and the final register section, so it isn't diluted by repetition).
+- **Typography** — Space Grotesk/Inter (the most common default LLM pairing)
+  replaced with Fraunces + Switzer.
+
+`tokens.css` and `.hallmark/log.json` exist so this reasoning and the actual
+token values are machine-readable if the page is redesigned again later.
