@@ -193,22 +193,14 @@ button:focus-visible {
   gap: 1rem;
 }
 
-.logo-placeholder {
-  font-family: var(--font-display);
-  font-size: 0.6875rem;
-  font-weight: 600;
-  letter-spacing: 0.14em;
-  color: var(--navy);
-  background: var(--white);
-  border: 1px dashed var(--light-grey);
-  border-radius: 4px;
-  padding: 0.55rem 0.8rem;
-  white-space: nowrap;
+.logo-img {
+  height: 34px;
+  width: auto;
+  object-fit: contain;
 }
-
-/* When real logos are dropped in as <img>, use this class:
-   .logo-img { height: 40px; width: auto; } */
-.logo-img { height: 40px; width: auto; }
+/* Studio Zao's lockup is a wide horizontal mark; ESCC's crest is more square —
+   sizing both to the same height (not the same box) keeps them visually balanced. */
+.logo-img-escc { height: 30px; }
 
 .logo-rule {
   width: 1px;
@@ -748,7 +740,8 @@ button:focus-visible {
 
   .footer-inner { flex-direction: column; align-items: flex-start; }
 
-  .logo-placeholder { font-size: 0.625rem; padding: 0.5rem 0.65rem; }
+  .logo-img { height: 26px; }
+  .logo-img-escc { height: 23px; }
 }
 
 /* ---------------------------------------------------------------------------

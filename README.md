@@ -30,15 +30,11 @@ No frameworks, no build step. Plain HTML, CSS and vanilla JS.
 Every item below is marked in the code with `<<< SWAP >>>` so you can find it
 fast (Cmd/Ctrl+F).
 
-1. **Logos** — replace the two `STUDIO ZAO LOGO` / `ESCC LOGO` placeholder boxes
-   in `index.html` (they appear in both the header and footer). Drop real files
-   into an `assets/` folder and swap each placeholder `<span>` for something like:
-   ```html
-   <img src="assets/studio-zao-logo.svg" alt="Studio Zao" class="logo-img">
-   ```
-   Keep both logos on white, keep the thin `#D1D5DB` vertical rule between them.
-   Suggested display size: ~40px tall (export at 2× for retina). The `.logo-img`
-   class is already defined.
+1. ~~**Logos**~~ — done. Real files live in `assets/studiozao-logo.png` and
+   `assets/East_Sussex_County_Council.svg`, wired into both the header and
+   footer. Studio Zao's wide lockup and ESCC's crest are sized to the same
+   *visual* height (not the same box) via `.logo-img` / `.logo-img-escc` in
+   `styles.css` — adjust those two rules if either logo is replaced later.
 
 2. **Hero images** — the collage currently uses colour-gradient placeholders.
    In `styles.css` find the `.img-hands`, `.img-screen`, `.img-music`,
