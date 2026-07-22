@@ -255,39 +255,54 @@
           </p>
         </div>
 
-        <ol class="process" aria-label="What happens after a Hack">
-          <li class="process-step reveal" data-reveal-delay="0">
+        <!-- Plain divs with ARIA list semantics, not <ol>/<li> — a native
+             list-item marker was rendering alongside the custom numeral
+             in some browsers, showing as a doubled "1. 2" style number. -->
+        <div class="process" role="list" aria-label="What happens after a Hack">
+          <div class="process-step reveal" data-reveal-delay="0" role="listitem">
             <div class="process-head">
               <span class="process-num" aria-hidden="true">1</span>
               <h3 class="process-title">Get invited to mentoring</h3>
             </div>
             <p class="process-body">
-              Once you&rsquo;ve attended a Hack, or told us you&rsquo;re
-              interested, you&rsquo;re invited to enrol in the mentoring
-              scheme.
+              Once you&rsquo;ve been to a Hack, or simply told us
+              you&rsquo;re interested, you&rsquo;re invited to apply for the
+              mentoring scheme.
             </p>
-          </li>
-          <li class="process-step reveal" data-reveal-delay="1">
+          </div>
+          <div class="process-step reveal" data-reveal-delay="1" role="listitem">
             <div class="process-head">
               <span class="process-num" aria-hidden="true">2</span>
               <h3 class="process-title">Go through the diagnostic</h3>
             </div>
             <p class="process-body">
               A short survey, then a 30-minute call to talk through your
-              situation and define the focus for your mentoring Sprint.
+              situation and agree the focus for your mentoring Sprint.
             </p>
-          </li>
-          <li class="process-step reveal" data-reveal-delay="2">
+          </div>
+          <div class="process-step reveal" data-reveal-delay="2" role="listitem">
             <div class="process-head">
               <span class="process-num" aria-hidden="true">3</span>
               <h3 class="process-title">Start your Sprint</h3>
             </div>
             <p class="process-body">
               You&rsquo;re matched with a mentor and begin your 6-hour
-              mentoring Sprint, built around your specific focus.
+              Sprint, at whatever pace suits your business: a few short
+              weekly sessions, or a couple of longer deep-dives.
             </p>
-          </li>
-        </ol>
+          </div>
+          <div class="process-step reveal" data-reveal-delay="3" role="listitem">
+            <div class="process-head">
+              <span class="process-num" aria-hidden="true">4</span>
+              <h3 class="process-title">Stay part of the Collective</h3>
+            </div>
+            <p class="process-body">
+              Once your Sprint ends, you&rsquo;re an alum: you&rsquo;ll get a
+              short summary of next steps, keep your invite to future Hacks,
+              and, if it&rsquo;s a fit, come back later as a mentor yourself.
+            </p>
+          </div>
+        </div>
       </div>
 
       <div class="wrap">
