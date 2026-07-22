@@ -288,6 +288,15 @@ button:focus-visible {
 }
 .hero-copy { max-width: 34rem; }
 
+.hero-tagline {
+  font-family: var(--font-display);
+  font-style: italic;
+  font-weight: 500;
+  font-size: var(--text-lead);
+  color: var(--color-red);
+  margin-bottom: var(--space-sm);
+}
+
 .hero-heading {
   font-size: var(--text-hero);
   font-weight: 600;
