@@ -453,31 +453,40 @@ button:focus-visible {
   flex-direction: column;
   gap: var(--space-xl);
 }
-.process-step { max-width: var(--measure); }
-/* Number and title share ONE baseline-aligned row, so they read as a single
-   line no matter the numeral size; the body indents beneath, under the title. */
-.process-head {
-  display: flex;
+/* A real 2-column grid — numeral | content — instead of a hand-guessed
+   padding-left. The number's own rendered width (which varies with the
+   font/weight and isn't the same as its character count) used to leave
+   the title and body indented by different, wrong amounts; the grid
+   column tracks the number's actual box, so title and body always land
+   in exactly the same column regardless of numeral width. */
+.process-step {
+  max-width: var(--measure);
+  display: grid;
+  grid-template-columns: auto 1fr;
+  column-gap: var(--space-md);
+  row-gap: var(--space-xs);
   align-items: baseline;
-  gap: var(--space-md);
-  margin-bottom: var(--space-xs);
 }
 .process-num {
+  grid-column: 1;
+  grid-row: 1;
   font-family: var(--font-display);
   font-size: var(--text-h2);
   font-weight: 600;
   color: var(--color-red);
   line-height: 1;
-  min-width: 1.5ch; /* keeps 1/2/3 titles left-aligned with each other */
 }
 .process-title {
+  grid-column: 2;
+  grid-row: 1;
   font-size: var(--text-h3);
   font-weight: 600;
 }
 .process-body {
+  grid-column: 2;
+  grid-row: 2;
+  align-self: start;
   color: var(--color-darker-grey);
-  /* align under the title, past the numeral column */
-  padding-left: calc(1.5ch + var(--space-md));
 }
 
 .how-band {
@@ -643,7 +652,6 @@ button:focus-visible {
   .programme-lead .programme-title { font-size: var(--text-h3); }
 
   .process-num { font-size: var(--text-h3); }
-  .process-body { padding-left: 0; } /* full width on mobile; no numeral column to clear */
 
   .nav-toggle { display: flex; }
   .nav-links {
