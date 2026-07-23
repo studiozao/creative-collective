@@ -6,8 +6,9 @@
  * CTA retained for conversion; hero photography retained over "none/SVG").
  * theme: client-locked hex palette (not OKLCH catalog) · nav: N9-inspired
  * (edge-aligned, quiet links, text+arrow secondary CTA) · footer: Ft1-inspired
- * (mast-headed) · enrichment: hero collage — 3 real photographs (credited in
- * README) + 1 hand-built CSS specimen swatch in place of stock "design work"
+ * (mast-headed) · enrichment: hero collage — 4 real, credited photographs
+ * (makers/craft, illustration & fine art, fashion/textiles, drone/property
+ * photography); see README for current credits and swap notes
  * ============================================================================
  * East Sussex Creative Collective — styles.css
  * ----------------------------------------------------------------------------
@@ -343,11 +344,11 @@ button:focus-visible {
 
 /* <<< SWAP >>> real programme photography, one per creative discipline —
    see README for current credits. Each maps to a discipline on the page:
-   hands = makers/craft · art = illustration & fine art · design = graphic
-   design/branding (letterpress type) · photography = drone/property. */
+   hands = makers/craft · art = illustration & fine art · textile = fashion
+   and textiles · photography = drone/property. */
 .img-hands       { background-image: url("assets/hero/hands.jpg"); }
 .img-art         { background-image: url("assets/hero/art.jpg"); }
-.img-design      { background-image: url("assets/hero/design.jpg"); }
+.img-textile     { background-image: url("assets/hero/textile.jpg"); }
 .img-photography { background-image: url("assets/hero/photography.jpg"); background-position: center 60%; }
 
 .scroll-cue {

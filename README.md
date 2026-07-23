@@ -49,14 +49,14 @@ fast (Cmd/Ctrl+F).
    | --- | --- | --- | --- |
    | 1 | Makers / craft | `hands.jpg` | `.img-hands` |
    | 2 | Illustration & fine art | `art.jpg` | `.img-art` |
-   | 3 | Graphic design / branding / identity | `design.jpg` | `.img-design` |
+   | 3 | Fashion / textiles | `textile.jpg` | `.img-textile` |
    | 4 | Photography (portrait / commercial / drone / property) | `photography.jpg` | `.img-photography` |
 
    Current stand-in photo credits (all reused under their Commons licence —
    drop this list once the real photos are in):
    - Makers: *Potter-helen-dixon-at-work3.jpg* by Whippetsgalore, CC BY-SA 4.0
    - Illustration & fine art: *Artist painting the mural of Paulo de Carvalho, Lisbon* by Jules Verne Times Two, CC BY-SA 4.0
-   - Graphic design: *Letterpress typefaces.jpg* by Kyle Van Horn, CC BY 2.0 (typography, the craft behind design / branding / identity)
+   - Fashion / textiles: *A Tailor Sewing Clothes in Her Shop.jpg* by Meritkosy, CC BY-SA 4.0
    - Photography: *Quadcopter camera drone in flight.jpg* by Josh Sorenson, CC0 (stands in for drone / property photography)
 
 3. **Google Form URL** — in `index.html`, find the CTA button in the form
