@@ -642,26 +642,13 @@ button:focus-visible {
 /* ---------------------------------------------------------------------------
    13 · Responsive
    --------------------------------------------------------------------------- */
-@media (max-width: 900px) {
-  :root {
-    --space-2xl: 4rem;
-    --space-xl: 3rem;
-    --space-lg: 2rem;
-  }
 
-  .hero { min-height: auto; }
-  .scroll-cue { display: none; }
-  .hero-inner {
-    grid-template-columns: 1fr;
-    gap: var(--space-lg);
-  }
-  .hero-collage { order: 2; }
-
-  .programme-pair { grid-template-columns: 1fr; gap: var(--space-xl); }
-  .programme-lead .programme-title { font-size: var(--text-h3); }
-
-  .process-num { font-size: var(--text-h3); }
-
+/* Nav switches to the hamburger menu on its OWN breakpoint, wider than the
+   layout breakpoint below. Five links + the logo lockup start wrapping to
+   two lines somewhere around 900-970px (confirmed by measurement) — well
+   before the hero/programme layout actually needs to change — so the nav
+   needs to drop to the mobile menu earlier than everything else does. */
+@media (max-width: 1000px) {
   .nav-toggle { display: flex; }
   .nav-links {
     position: absolute;
@@ -685,6 +672,27 @@ button:focus-visible {
 
   .site-nav { position: static; }
   .header-inner { position: relative; }
+}
+
+@media (max-width: 900px) {
+  :root {
+    --space-2xl: 4rem;
+    --space-xl: 3rem;
+    --space-lg: 2rem;
+  }
+
+  .hero { min-height: auto; }
+  .scroll-cue { display: none; }
+  .hero-inner {
+    grid-template-columns: 1fr;
+    gap: var(--space-lg);
+  }
+  .hero-collage { order: 2; }
+
+  .programme-pair { grid-template-columns: 1fr; gap: var(--space-xl); }
+  .programme-lead .programme-title { font-size: var(--text-h3); }
+
+  .process-num { font-size: var(--text-h3); }
 }
 
 @media (max-width: 560px) {
