@@ -71,10 +71,25 @@ fast (Cmd/Ctrl+F).
    A custom CTA-click event (separate from the page view) fires automatically
    from `script.js` → `trackCtaClick()` and works with either provider.
 
-5. **Eligibility copy — CONFIRM** — the eligibility checklist is a
-   **placeholder** pending confirmation against the official programme spec.
-   Review the three items in the Eligibility section of `index.html` before
-   launch.
+5. **Eligibility copy — grounded in the Lot 3 spec, deliberately summarised.**
+   The three checklist items now reflect the actual eligibility criteria
+   (trading status, creative-sector fit including the tech-enabled/pure-IT
+   distinction, and eligible business structures including social
+   enterprises, co-ops and charity trading arms). Two things from the spec
+   are **intentionally** left off the public-facing checklist:
+   - **Exact SME thresholds** (up to 249 staff / £44m turnover / £40m balance
+     sheet) — this is a legal ceiling that's irrelevant to the realistic
+     audience (sole traders, freelancers, small creative businesses never
+     approach it) and reads as generic tender-boilerplate exactly where the
+     site is trying not to.
+   - **A blunt "pre-start businesses are excluded" line** — the existing
+     closing line ("Not sure if you fit? Come along to a Hack or get in
+     touch") already handles that ambiguity without a discouraging
+     exclusion statement up front.
+
+   If you want either reinstated (e.g. for a compliance/T&Cs page rather
+   than this checklist), the source figures are in the Lot 3 specification
+   document, not repeated here.
 
 6. **Hack dates** — the form section is currently framed as an *expression of
    interest*, not a live booking, because Hack dates aren't confirmed. Once
